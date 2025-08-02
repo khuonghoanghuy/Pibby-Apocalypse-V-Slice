@@ -1,0 +1,34 @@
+import funkin.modding.module.Module;
+import funkin.play.PlayState;
+import funkin.graphics.FunkinSprite;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import Std;
+
+class CNlogo extends Module 
+{
+    var game:PlayState;
+
+    public function new() {
+        super('CNlogo');
+    }
+
+    override function onStateChangeEnd(event) {
+        super.onCreate(event);
+
+        game = PlayState.instance;
+
+        var logoCam:FlxCamera = new FlxCamera();
+        logoCam.bgColor = 0x00000000;
+        FlxG.cameras.add(logoCam, false);
+
+        var logo:FunkinSprite = new FunkinSprite();
+        logo.loadTexture("cnlogo");
+        logo.setGraphicSize(Std.int(logo.width * 0.17));
+        logo.setPosition(675, 375);
+        logo.alpha = 0.6;
+        logo.camera = logoCam;
+        if (game != null)
+            game.add(logo);
+    }
+}

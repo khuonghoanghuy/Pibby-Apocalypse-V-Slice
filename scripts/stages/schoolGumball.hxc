@@ -1,0 +1,88 @@
+import funkin.play.stage.Stage;
+import funkin.play.PlayState;
+import funkin.modding.base.ScriptedFlxRuntimeShader;
+import flixel.addons.display.FlxRuntimeShader;
+import funkin.modding.module.ModuleHandler;
+import flixel.util.FlxColor;
+
+class SchoolGumball extends Stage {
+    function new() {
+        super('schoolGumball');
+    }
+
+    var game:PlayState;
+
+    override function buildStage(event) {
+        super.buildStage(event);
+
+        setDropsVisible(false);
+
+        getNamedProp('sinkdrop').shader = createCyclesdShader();
+        getNamedProp('topdrop').shader = createCyclesdShader();
+        getNamedProp('leakdrop').shader = createCyclesdShader();
+        getNamedProp('chaindrop').shader = createCyclesdShader();
+        getNamedProp('doordrop').shader = createCyclesdShader();
+    }
+
+    function createCyclesdShader() {
+        var cyclesdShader = new FlxRuntimeShader(Assets.getText(Paths.frag('Cyclesd')));
+        cyclesdShader.setFloat('amount', 0);
+        cyclesdShader.setFloat('pixel', 5);
+        return cyclesdShader;
+    }
+
+    function setDropsVisible(value:Bool) {
+        getNamedProp('sinkdrop').visible = value;
+        getNamedProp('topdrop').visible = value;
+        getNamedProp('leakdrop').visible = value;
+        getNamedProp('penny').visible = value;
+        getNamedProp('doordrop').visible = value;
+        getNamedProp('chaindrop').visible = value;
+    }
+
+    function hideBackground(value:Bool) {
+        var propNames = [
+            'wall', 'light', 'vignette', 'vignette2', 'background'
+        ];
+        for (name in propNames) {
+            var prop = getNamedProp(name);
+            if (prop != null) prop.visible = value;
+        }
+    }
+
+    override function onSongStart(){
+        game = PlayState.instance;
+        if (game == null) return;
+
+        game.scoreText.font = Paths.font('Gumball.ttf');
+        game.scoreText.x = 250;
+        game.scoreText.size = 20;
+        game.scoreText.color = FlxColor.fromRGB(49, 176, 189);
+
+        ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
+        ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
+        ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
+    }
+
+    override function onBeatHit(event) {
+        super.onBeatHit(event);
+        switch (event.beat) {
+            case 0: // prevent from restart game while already showup
+                setDropsVisible(false);
+            case 96:
+                setDropsVisible(true);
+        }
+    }
+
+    override function onStepHit(event){
+        super.onStepHit(event);
+        switch (event.step) {
+            case 1216: 
+                setDropsVisible(false);
+                hideBackground(false);
+            case 1472:
+                setDropsVisible(true);
+                hideBackground(true);
+        }
+    }
+}

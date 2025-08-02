@@ -1,0 +1,17 @@
+{
+	"timeFormat": "ms",
+	"artist": "Corn",
+	"charter": "Unknown",
+	"playData": {
+		"stage": "schoolGumball",
+		"noteStyle": "funkin",
+		"difficulties": ["normal"],
+		"characters": {"girlfriend": "darwinretcon", "opponent": "gumball", "player": "cropbf"}
+	},
+	"songName": "My Amazing World",
+	"timeChanges": [
+		{"t": 0, "bpm": 200}
+	],
+	"generatedBy": "Psych Engine v1.0.4 - Chart Editor V-Slice Exporter",
+	"version": "2.2.3"
+}

@@ -1,0 +1,112 @@
+import flixel.FlxSprite;
+
+import flixel.util.FlxTimer;
+
+import funkin.Assets;
+import funkin.Paths;
+
+import flixel.addons.display.FlxRuntimeShader;
+
+import funkin.modding.module.Module;
+import funkin.play.PlayState;
+import funkin.Preferences;
+import flixel.math.FlxMath;
+import flixel.FlxG;
+
+class healthBarGumball extends Module{
+    var gumballHealthBar:FlxSprite;
+    var replaceColorShader:FlxRuntimeShader;
+
+    var RGBColor:Array = [0,0,0];
+
+    function new(){
+        super('healthBarGumball', 1);
+    }
+
+    override function onCreate(){
+        super.onCreate();
+    }
+
+    function createHealthBar()
+    {
+        replaceColorShader = new FlxRuntimeShader(Assets.getText(Paths.frag('GreenReplacementShader')));
+        replaceColorShader.setFloat('arrayR', RGBColor[0] / 255);
+        replaceColorShader.setFloat('arrayG', RGBColor[1] / 255);
+        replaceColorShader.setFloat('arrayB', RGBColor[2] / 255);
+
+        game = PlayState.instance;
+        if (game == null) return;
+
+        game.healthBar.visible = game.healthBarBG.visible = false;
+
+        gumballHealthBar = new FlxSprite(0, 0);
+
+        gumballHealthBar.frames = Paths.getSparrowAtlas('healthbar/healthbarShader', null, true);
+
+        for(i in 0...41){
+            var indiceStart = i * 3;
+            var animFrames = [indiceStart, indiceStart + 1, indiceStart + 2]; 
+            gumballHealthBar.animation.addByIndices(i + 'Part', "healthbar", animFrames, "", 12, true);
+        }
+    
+        gumballHealthBar.animation.play("20Part", true);
+        
+        gumballHealthBar.y = game.iconP1.y + 50;
+        gumballHealthBar.scale.set(1, 1);
+        gumballHealthBar.cameras = [game.camHUD];
+        gumballHealthBar.x = 85; 
+        gumballHealthBar.shader = replaceColorShader;
+        game.insert(game.members.indexOf(PlayState.instance.iconP2) - 2, gumballHealthBar);
+        game.add(gumballHealthBar);
+
+        
+    }
+
+    function setColor(red, green, blue){
+        RGBColor[0] = red;
+        RGBColor[1] = green; 
+        RGBColor[2] = blue;  
+    }
+
+    override function onUpdate(){
+        super.onUpdate();
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        game.iconP1.x = 550;
+        game.iconP2.x = 30;
+
+        if (replaceColorShader != null){
+            //Amazing World and Retcon need this!
+            replaceColorShader.setFloat('arrayR', RGBColor[0] / 255);
+            replaceColorShader.setFloat('arrayG', RGBColor[1] / 255);
+            replaceColorShader.setFloat('arrayB', RGBColor[2] / 255);
+        }
+
+        trace(game.health);
+        if (gumballHealthBar != null){
+            var damagePercent = Math.ceil(game.health * 20);
+            gumballHealthBar.animation.play((41 - damagePercent) + 'Part');
+        }
+    }
+
+    override function onBeatHit(event){
+        super.onBeatHit(event);
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+            game.iconP1.x = 550;
+            game.iconP2.x = 25;
+    }
+
+    function getHealthBar(){
+        return gumballHealthBar;
+    }
+
+    function onDestroy(e:Dynamic)
+    {
+        if (gumballHealthBar != null) gumballHealthBar.kill();
+    }
+}

@@ -1,0 +1,38 @@
+import flixel.FlxG;
+import funkin.play.PlayState;
+import funkin.modding.module.Module;
+
+class NewCamera extends Module
+{
+    var camOverlay:FlxCamera;
+    var camOther:FlxCamera;
+
+    public function new(){
+        super('NewCamera');
+    }
+
+    override function createNewCamera(){ 
+        var game = PlayState.instance;
+        if (game == null) return;
+
+        FlxG.cameras.remove(game.camHUD,false);
+
+        camOverlay = new FlxCamera();
+        camOverlay.bgColor = 0x00;
+        
+        FlxG.cameras.add(camOverlay,false);
+        FlxG.cameras.add(game.camHUD,false);
+        
+        camOther = new FlxCamera();
+        camOther.bgColor = 0x00;
+        super.onCreate();
+    }
+
+    function getCamOther(){
+        return camOther;
+    }
+
+    function getCamOverlay(){
+        return camOverlay;
+    }
+}

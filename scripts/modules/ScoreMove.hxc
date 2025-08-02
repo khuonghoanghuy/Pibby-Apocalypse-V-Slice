@@ -1,0 +1,39 @@
+import flixel.text.FlxText;
+import funkin.modding.module.Module;
+import funkin.play.PlayState;
+import funkin.Paths;
+import funkin.modding.IPlayStateScriptedClass;
+import flixel.text.FlxTextBorderStyle;
+
+import flixel.tweens.FlxTween;
+import flixel.FlxG;
+
+class ScoreMove extends Module implements IPlayStateScriptedClass
+{
+    var game:PlayState;
+    private var scoreTxt:FlxText;
+    var scoreTextTween:FlxTween;
+
+    override function onSongStart(){
+        game = PlayState.instance;
+        if (game == null) return;
+    }
+
+    function onNoteHit(event:Dynamic){
+        super.onNoteHit(event);
+        game = PlayState.instance;
+        if (game == null) return;
+
+        if (event.note.noteData.getMustHitNote()) 
+            if(scoreTxtTween != null) {
+				scoreTxtTween.cancel();
+			}
+
+            game.scoreText.angle = FlxG.random.int(-2, 2);
+			scoreTextTween = FlxTween.tween(game.scoreText, {angle: 0}, 0.2, {
+				onComplete: function(twn:FlxTween) {
+					scoreTxtTween = null;
+				}
+			});
+    }
+}

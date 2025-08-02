@@ -1,0 +1,49 @@
+import funkin.modding.module.Module;
+import funkin.play.PlayState;
+import flixel.FlxG;
+
+class CameraMove extends Module {
+    var game:PlayState;
+
+    public function new() {
+        super('CameraMove', 1001);
+    }
+
+    override function onStateChangeEnd(event:Dynamic) {
+        super.onStateChangeEnd(event);
+
+        game = PlayState.instance;
+        setCameraMove([0, 0], 0);
+    }
+
+    override function onUpdate(event:Dynamic) {
+        super.onUpdate(event);
+
+        game = PlayState.instance;
+
+        if (game != null && game.dad != null && game.dad.animation != null)
+        {
+            switch (game.dad.animation.name) {
+                case "singLEFT", "singLEFT-alt":
+                    setCameraMove([-15, 0], -1);
+                case "singRIGHT", "singRIGHT-alt":
+                    setCameraMove([15, 0], 1);
+                case "singUP", "singUP-alt":
+                    setCameraMove([0, -15], 0);
+                case "singDOWN", "singDOWN-alt":
+                    setCameraMove([0, 15], 0);
+                default:
+                    setCameraMove([0, 0], 0);
+            }
+        }
+    }
+
+    function setCameraMove(pos:Array<Float>, angle:Int) {
+        game = PlayState.instance;
+
+        if (game != null && game.camGame != null && game.camGame.targetOffset != null) {
+            game.camGame.targetOffset.x = pos[0];
+            game.camGame.targetOffset.y = pos[1];
+        }
+    }
+}

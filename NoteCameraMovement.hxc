@@ -1,0 +1,261 @@
+import funkin.play.PlayState;
+
+import funkin.modding.module.Module;
+import funkin.util.tools.StringTools;
+import funkin.Paths;
+
+import flixel.FlxSprite;
+import flixel.FlxG;
+import funkin.ui.options.OptionsState;
+import flixel.util.FlxSave;
+import flixel.tweens.misc.VarTween;
+import flixel.tweens.FlxTweenManager;
+import flixel.tweens.FlxTween;
+import flixel.math.FlxPoint;
+import flixel.math.FlxMath;
+import Reflect;
+import funkin.audio.FunkinSound;
+import funkin.save.Save;
+
+import Std;
+import Math;
+
+class NoteCameraModule extends Module {
+	public function new() {
+		super("Note Camera Movement Add-on");
+
+		// Cache Flixel Save
+		if (Save.instance.modOptions["noteCamera"] == null)
+			Save.instance.modOptions["noteCamera"] = true;
+
+		if (Save.instance.modOptions["noteCameraOnlyPlayer"] == null)
+			Save.instance.modOptions["noteCameraOnlyPlayer"] = false;
+
+		if (Save.instance.modOptions["noteCameraXOffset"] == null || Save.instance.modOptions["noteCameraXOffset"] < 0 || Save.instance.modOptions["noteCameraXOffset"] > 1000.0)
+			Save.instance.modOptions["noteCameraXOffset"] = 25.0;
+		
+		if (Save.instance.modOptions["noteCameraYOffset"] == null || Save.instance.modOptions["noteCameraYOffset"] < 0 || Save.instance.modOptions["noteCameraYOffset"] > 1000.0)
+			Save.instance.modOptions["noteCameraYOffset"] = 25.0;
+
+		modenabled = Save.instance.modOptions["noteCamera"];
+		onlyPlayer = Save.instance.modOptions["noteCameraOnlyPlayer"];
+		notecamoffsetx = Save.instance.modOptions["noteCameraXOffset"];
+		notecamoffsety = Save.instance.modOptions["noteCameraYOffset"];
+	}
+
+	var notecamoffsetx:Float;
+	var notecamoffsety:Float;
+	var AngleOffset:Float;
+	var modenabled:Bool;
+	var onlyPlayer;
+
+	override function onSongStart(){
+		super.onSongStart();
+		state = PlayState.instance;
+
+		if (state == null) return;
+		state.camGame.width += 20;
+		state.camGame.height += 20;
+		state.camGame.x -= 10;
+		state.camGame.y -= 10;
+	}
+
+	override function onStateChangeBegin(ev:ScriptEvent) {
+		super.onStateChangeBegin(ev);
+	}
+
+	override function onStateChangeEnd(ev:ScriptEvent) {
+		super.onStateChangeEnd(ev);
+		startedTweens.resize(0);
+		startValueX.resize(0);
+		startValueY.resize(0);
+
+		optionState = null;
+
+		if(Std.isOfType(ev.targetState, OptionsState)){ // Inject options to the options menu
+            var prefs = ev.targetState.optionsCodex.pages.get("preferences");
+			optionState = ev.targetState;
+			prefs.items.createItem(120,120*prefs.items.length+30,"Note Camera Movement","bold",function(){
+				trace("uHH");
+			});
+			prefs.preferenceDesc.push("");
+
+			prefs.createPrefItemCheckbox("Enable Note Movement","Enable camera offsetting when singing.",function(value){
+				modenabled = Save.instance.modOptions["noteCamera"] = value;
+				Save.instance.flush();
+			},Save.instance.modOptions["noteCamera"]);
+			prefs.createPrefItemCheckbox("Only player notes","Wether to only offset the camera only when you sing.",function(value){
+				onlyPlayer = Save.instance.modOptions["noteCameraOnlyPlayer"] = value;
+				Save.instance.flush();
+			},Save.instance.modOptions["noteCameraOnlyPlayer"]);
+
+			prefs.createPrefItemNumber("Movement Offset X","How much the camera goes horizontally.",function(value:Float){
+				notecamoffsetx = Save.instance.modOptions["noteCameraXOffset"] = value;
+				Save.instance.flush();
+			},function(value:Float){
+				return truncateFloat(value,1);
+			},Save.instance.modOptions["noteCameraXOffset"], 0, 1000.0,0.1,1);
+
+			prefs.createPrefItemNumber("Movement Offset Y","How much the camera goes vertically.",function(value:Float){
+				notecamoffsety = Save.instance.modOptions["noteCameraYOffset"] = value;
+				Save.instance.flush();
+			},function(value:Float){
+				return truncateFloat(value,1);
+			},Save.instance.modOptions["noteCameraYOffset"], 0, 1000.0,0.1,1);
+		}
+		else if (Std.isOfType(ev.targetState,PlayState)){
+			state = PlayState.instance;
+		}
+	}
+	
+
+	var state;
+	var optionState;
+	
+	override function onDestroy(ev){
+		super.onDestroy();
+		state = null;
+		startedTweens.resize(0);
+		startValueX.resize(0);
+		startValueY.resize(0);
+	}
+
+	var startedTweens:Array<VarTween> = [];
+	var startValueX:Array<Float> = [];
+	var startValueY:Array<Float> = [];
+
+	var movXOption;
+	var movYOption;
+
+	var holdPressTime:Float = 0.0;
+
+	override function onUpdate(ev:UpdateScriptEvent){
+		super.onUpdate(ev);
+			
+		if (state == null)
+			return;
+
+		// This is just an approach, you may find possible bugs if more tweens edit the camera scroll :(
+		var index:Int = 0;
+
+		// Mimic camera movement while a camera tween occurs, in other words, while camera target is null
+		state.camGame.angle = FlxMath.lerp(state.camGame.angle,0 + AngleOffset / 30, FlxMath.bound(ev.elapsed * 6 * state.playbackRate, 0, 1));
+		if (FlxG.camera.target == null){
+		
+			var lerpVal:Float = FlxMath.bound(ev.elapsed * 4, 0, 1); // Approach lerp
+
+			for (tween in FlxTween.globalManager._tweens){
+
+				if (startedTweens[index] != null && startedTweens[index].finished){
+					startedTweens[index] = null;
+					startValueX[index] = null;
+					startValueY[index] = null;
+				}		
+
+				var varTween:VarTween = tween;
+
+				if (varTween == null || varTween._object != FlxG.camera.scroll) // Check if the tween is not null and if the tween edits the camera scroll (bugfix)
+					continue;
+				
+				if (startedTweens[index] == null){
+
+					startedTweens[index] = varTween;
+
+					if (startedTweens[index]._propertyInfos == null)
+						continue;
+
+					for (property in startedTweens[index]._propertyInfos)
+					{
+						switch(property.field){
+							case "x":
+								startValueX[index] = property.startValue;
+								
+							case "y":
+								startValueY[index] = property.startValue; 
+						}
+					}
+				}
+
+
+				if (varTween._propertyInfos == null)
+					return;
+
+				for (property in varTween._propertyInfos)
+				{
+					if (property.field == null)
+						continue;
+					switch(property.field){
+						case "x":
+							if (startValueX[index] != null){
+								var rawDestiny = startValueX[index]+FlxG.camera.targetOffset.x;
+								property.startValue = FlxMath.lerp(property.startValue,rawDestiny,lerpVal); // Add the note camera offset to the tween startvalue
+
+
+								state.cameraFollowPoint.x = (property.startValue + property.range) + (FlxG.camera.width/2);
+							}
+			
+						case "y":
+							if (startValueY[index] != null){
+								var rawDestiny = startValueY[index]+FlxG.camera.targetOffset.y;
+								property.startValue = FlxMath.lerp(property.startValue,rawDestiny,lerpVal);
+
+								state.cameraFollowPoint.y = (property.startValue + property.range) + (FlxG.camera.height/2);
+							}
+					}
+				}
+
+				index++;
+			}	
+		}
+	}
+
+	override function onNoteHit(event) {
+    	super.onNoteHit(event);
+
+		if (state == null || !modenabled)
+			return;
+
+		if (state.playerStrumline == null || (!event.note.noteData.getMustHitNote() && Save.instance.modOptions.onlyPlayer)) // Check if the note sang is from the player (aka musthit field)
+			return;
+		
+		// Set general camera offset, automatically handled by FlxCamera when target is not null
+
+		FlxG.camera.targetOffset.set(0,0);
+
+		switch(event.note.direction)
+		{
+			case 0:
+				FlxG.camera.targetOffset.x = -notecamoffsetx;
+				AngleOffset = -notecamoffsetx;
+			case 1:
+				FlxG.camera.targetOffset.y = notecamoffsety;
+				AngleOffset = notecamoffsety;
+			case 2:
+				FlxG.camera.targetOffset.y = -notecamoffsety;
+				AngleOffset = -notecamoffsety;
+			case 3:
+				FlxG.camera.targetOffset.x = notecamoffsetx;
+				AngleOffset = notecamoffsetx;
+		}
+  	}
+
+	override function onSongEvent(ev){
+
+		if (state != null){
+			// Before executing the FocusCamera event we set the camera origin point to the last position (bugfix)
+			if (ev.eventData.eventKind == "FocusCamera"){
+				state.cameraFollowPoint.setPosition(FlxG.camera.scroll.x+FlxG.camera.width*0.5,FlxG.camera.scroll.y+FlxG.camera.height*0.5);
+			}
+		}
+
+		super.onSongEvent(ev);
+	}
+
+	function truncateFloat(number, precision)
+	{
+		var num = number;
+		num = num * Math.pow(10, precision);
+		num = Math.round(num) / Math.pow(10, precision);
+		return num;
+	}
+}

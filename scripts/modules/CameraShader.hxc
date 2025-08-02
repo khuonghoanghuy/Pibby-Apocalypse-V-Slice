@@ -1,0 +1,106 @@
+import funkin.modding.module.Module;
+import funkin.modding.base.ScriptedFlxRuntimeShader;
+import funkin.play.PlayState;
+import openfl.filters.ShaderFilter;
+import flixel.addons.display.FlxRuntimeShader;
+import flixel.FlxG;
+import flixel.math.FlxMath;
+
+class CameraShader extends Module
+{
+    var chromAmount:Float = -0.25;
+
+    var beatChromaticAberration:Int = 4;
+    
+    var glitchShaderIntensity:Float;
+    var chromaticShaderIntensity:Float;
+    var lerpGlitchChromatic:Float = 7.0;
+
+    var isGF:Bool = false;
+    var uTimeFloat:Float;
+    
+    var chromaticShader:FlxRuntimeShader;
+    var glitchShader:FlxRuntimeShader;
+
+    var game:PlayState;
+    
+    // call game = PlayState.instance instead of using game = PlayState.instance;
+    function initPlayState() {
+        return PlayState.instance;
+    }
+
+    public function new()
+    {
+        super('CameraShader');
+    }
+
+    override function onCreate(event)
+    {
+        super.onCreate(event);
+
+        game = initPlayState();
+
+        if (game == null) return;
+
+    }
+
+    function onSongEvent(e:Dynamic)
+    {
+        if (game == null) return;
+        super.onSongEvent(e);
+
+        if (e.eventData.eventKind == 'AddZoomEvent') chromaticShaderIntensity = chromAmount;
+        trace(e);
+
+    }
+
+    override function onSongStart(event) {
+        super.onSongStart(event);
+        resetShaderGlitch();
+        // game.isBotPlayMode = true;
+    }
+
+    function resetShaderGlitch(){
+        chromaticShader = new FlxRuntimeShader(Assets.getText(Paths.frag('ChromaticAberation')));
+        glitchShader = new FlxRuntimeShader(Assets.getText(Paths.frag('glitchChromatic')));
+
+        game.camGame.filters = [new ShaderFilter(chromaticShader), new ShaderFilter(glitchShader)];
+        game.camHUD.filters = [new ShaderFilter(chromaticShader), new ShaderFilter(glitchShader)];
+    }
+
+    override function onBeatHit(event:Dynamic) {
+        super.onBeatHit(event);
+        if (event.beat % beatChromaticAberration == 0) chromaticShaderIntensity = chromAmount;
+    }
+
+    override function onNoteHit(event:Dynamic)
+    {
+        if (game == null) return;
+        super.onNoteHit(event);
+
+        if (!event.note.noteData.getMustHitNote() && FlxG.random.bool(50) && event.note.noteData.kind != 'pibbyInvisibleSing') glitchShaderIntensity = FlxG.random.float(0.2, 0.8);
+    }
+
+    override function handleEvent(params:Dynamic)
+    {
+        if (game == null) return;
+    }
+
+    override function onUpdate(event)
+    {
+        super.onUpdate(event);
+
+        game = initPlayState();
+        if (game == null) return;
+
+        uTimeFloat += event.elapsed;
+        glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, FlxMath.bound(event.elapsed * lerpGlitchChromatic, 0, 1));
+        chromaticShaderIntensity = FlxMath.lerp(chromaticShaderIntensity, 0, FlxMath.bound(event.elapsed * 6, 0, 1));
+
+        if (chromaticShader != null) chromaticShader.setFloat('amount', chromaticShaderIntensity);
+        if (glitchShader != null){
+            glitchShader.setFloat('glitchMultiply', glitchShaderIntensity);
+            glitchShader.setFloat('uTime', uTimeFloat);
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "title": "Pibby Apocalypse V-Slice",
+    "description": "A Port version of Pibby Apocalypse.",
+    "contributors": [
+        {
+            "name": "Huy1234TH",
+            "role": "Port this mods"
+        },
+        {
+            "name": "NTH208",
+            "role": "Help to work this port"
+        },
+        {
+            "name": "PoeDev",
+            "role": "Change Character Event Script"
+        },
+        {
+            "name": "sillyburg",
+            "role": "Script of the shaders, Glitch Strums"
+        }
+    ],
+    "api_version": "0.6.3",
+    "mod_version": "1.0.0",
+    "license": "Apache-2.0"
+}

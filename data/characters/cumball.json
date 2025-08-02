@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "name": "Gumball Fake",
+  "assetPath": "characters/Cumball",
+  "singTime": 8.0,
+  "animations": [
+    {
+      "name": "idle",
+      "prefix": "Idle",
+      "offsets": [0, 0]
+    },
+    {
+      "name": "singLEFT",
+      "prefix": "Left",
+      "offsets": [37, 1]
+    },
+    {
+      "name": "singDOWN",
+      "prefix": "Down",
+      "offsets": [27, -4]
+    },
+    {
+      "name": "singUP",
+      "prefix": "Up",
+      "offsets": [21, 1]
+    },
+    {
+      "name": "singRIGHT",
+      "prefix": "Right",
+      "offsets": [-12, -18]
+    },
+    {
+      "name": "Transition",
+      "prefix": "Yourmom",
+      "offsets": [-3, 3]
+    },
+    {
+      "name": "still",
+      "prefix": "Yourmom0000",
+      "looped": true,
+      "offsets": [-3, 3]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+	"version": "1.0.0",
+	"renderType": "sparrow",
+	"offsets": [
+		0,
+		0
+	],
+	"danceEvery": 1,
+	"scale": 1.7,
+	"name": "Gumball (Pibby Apocalypse)",
+	"cameraOffsets": [
+		0,
+		-5
+	],
+	"flipX": false,
+	"singTime": 8,
+	"startingAnimation": "idle",
+	"isPixel": false,
+	"assetPath": "characters/gumball",
+	"healthIcon": {
+		"offsets": [
+			0,
+			0
+		],
+		"id": "gumball",
+		"flipX": false,
+		"isPixel": false,
+		"scale": 1
+	},
+	"animations": [
+		{
+			"flipY": false,
+			"offsets": [
+				0,
+				0
+			],
+			"frameRate": 24,
+			"prefix": "Idle",
+			"flipX": false,
+			"looped": false,
+			"name": "idle"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				144,
+				-25
+			],
+			"frameRate": 24,
+			"prefix": "Left",
+			"flipX": false,
+			"looped": false,
+			"name": "singLEFT"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				66,
+				21
+			],
+			"frameRate": 24,
+			"prefix": "Down",
+			"flipX": false,
+			"looped": false,
+			"name": "singDOWN"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				69,
+				34
+			],
+			"frameRate": 24,
+			"prefix": "Up",
+			"flipX": false,
+			"looped": false,
+			"name": "singUP"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				9,
+				-35
+			],
+			"frameRate": 24,
+			"prefix": "Right",
+			"flipX": false,
+			"looped": false,
+			"name": "singRIGHT"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				43,
+				25
+			],
+			"frameRate": 24,
+			"prefix": "Laugh0",
+			"flipX": false,
+			"looped": false,
+			"name": "laugh"
+		}
+	]
+}

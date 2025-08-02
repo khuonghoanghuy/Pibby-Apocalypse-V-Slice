@@ -1,0 +1,67 @@
+import funkin.modding.module.Module;
+import funkin.play.PlayState;
+import flixel.FlxG;
+import flixel.addons.display.FlxRuntimeShader;
+
+class NoteGlitchModule extends Module {
+    public function new() {
+        super('NoteGlitchModule');
+    }
+
+    var glitchStrumsShads:Array<FlxRuntimeShader>;
+
+    function glitchStrums() {
+        if (PlayState.instance == null) return;
+
+        glitchStrumsShads = [
+            new FlxRuntimeShader(Assets.getText(Paths.frag('distort'))),
+            new FlxRuntimeShader(Assets.getText(Paths.frag('distort'))),
+            new FlxRuntimeShader(Assets.getText(Paths.frag('distort'))),
+            new FlxRuntimeShader(Assets.getText(Paths.frag('distort')))
+        ];
+
+        for (i in glitchStrumsShads) i.setFloat('negativity', 0);
+
+        var notes = PlayState.instance.opponentStrumline.strumlineNotes.members;
+        for (idx in 0...notes.length) {
+            notes[idx].shader = glitchStrumsShads[idx];
+        }
+    }
+
+    function unglitchStrums() {
+        if (PlayState.instance == null) return;
+        var notes = PlayState.instance.opponentStrumline.strumlineNotes.members;
+        for (note in notes) {
+            note.shader = null;
+        }
+        glitchStrumsShads = null;
+    }
+
+    override function onUpdate(event) {
+        super.onUpdate(event);
+        if (PlayState.instance == null || glitchStrumsShads == null) return;
+        var notes = PlayState.instance.opponentStrumline.strumlineNotes.members;
+        for (idx in 0...notes.length) {
+            notes[idx].shader = glitchStrumsShads[idx];
+        }
+    }
+
+    function onNoteHit(event) {
+        if (PlayState.instance == null || glitchStrumsShads == null) return;
+        if (!event.note.noteData.getMustHitNote()) {
+            var dir = event.note.noteData.getDirection();
+            if (dir >= 0 && dir < glitchStrumsShads.length)
+                glitchStrumsShads[dir].setFloat('binaryIntensity', FlxG.random.float(4, 6));
+        }
+    }
+
+    function onStepHit(event) {
+        super.onStepHit(event);
+        if (PlayState.instance == null || glitchStrumsShads == null) return;
+        if (event.step % 1 == 0) {
+            for (i in glitchStrumsShads) {
+                i.setFloat('binaryIntensity', FlxG.random.float(2, 6)); // beautiful
+            }
+        }
+    }
+}

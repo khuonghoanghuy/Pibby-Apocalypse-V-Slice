@@ -1,0 +1,140 @@
+{
+	"version": "1.0.0",
+	"renderType": "multisparrow",
+	"offsets": [
+		0,
+		0
+	],
+	"danceEvery": 1,
+	"scale": 1,
+	"name": "Boyfriend (Pibby Apocalypse)",
+	"flipX": true,
+	"cameraOffsets": [
+		0,
+		0
+	],
+	"singTime": 8,
+	"startingAnimation": "idle",
+	"isPixel": false,
+	"assetPath": "characters/cropbf",
+	"healthIcon": {
+		"offsets": [
+			0,
+			0
+		],
+		"id": "cropbf",
+		"flipX": false,
+		"isPixel": false,
+		"scale": 1
+	},
+	"animations": [
+		{
+			"flipY": false,
+			"offsets": [
+				-5,
+				0
+			],
+			"frameRate": 24,
+			"prefix": "BF idle dance",
+			"flipX": false,
+			"looped": false,
+			"name": "idle"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-56,
+				-4
+			],
+			"frameRate": 24,
+			"prefix": "left0",
+			"flipX": false,
+			"looped": false,
+			"name": "singLEFT"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-64,
+				-32
+			],
+			"frameRate": 24,
+			"prefix": "down0",
+			"flipX": false,
+			"looped": false,
+			"name": "singDOWN"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-16,
+				39
+			],
+			"frameRate": 24,
+			"prefix": "up0",
+			"flipX": false,
+			"looped": false,
+			"name": "singUP"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-5,
+				1
+			],
+			"frameRate": 24,
+			"prefix": "right0",
+			"flipX": false,
+			"looped": false,
+			"name": "singRIGHT"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-42,
+				-6
+			],
+			"frameRate": 24,
+			"prefix": "MissL0",
+			"flipX": false,
+			"looped": false,
+			"name": "singLEFTmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-30,
+				-35
+			],
+			"frameRate": 24,
+			"prefix": "MissD0",
+			"flipX": false,
+			"looped": false,
+			"name": "singDOWNmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-16,
+				57
+			],
+			"frameRate": 24,
+			"prefix": "MissU0",
+			"flipX": false,
+			"looped": false,
+			"name": "singUPmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-25,
+				6
+			],
+			"frameRate": 24,
+			"prefix": "MissR0",
+			"flipX": false,
+			"looped": false,
+			"name": "singRIGHTmiss"
+		}
+	]
+}
