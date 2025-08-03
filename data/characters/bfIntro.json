@@ -1,0 +1,80 @@
+{
+	"version": "1.0.0",
+	"renderType": "sparrow",
+	"offsets": [
+		0,
+		0
+	],
+	"danceEvery": 1,
+	"scale": 1,
+	"name": "Boyfriend (Intro) (Pibby Apocalypse)",
+	"cameraOffsets": [
+		0,
+		-5
+	],
+	"flipX": false,
+	"singTime": 8,
+	"startingAnimation": "idle",
+	"isPixel": false,
+	"assetPath": "characters/BF_Intro",
+	"healthIcon": {
+		"isPixel": false,
+		"offsets": [
+			0,
+			0
+		],
+		"scale": 1,
+		"id": "cropbf",
+		"flipX": false
+	},
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"flipY": false,
+			"frameRate": 24,
+			"prefix": "BF 30",
+			"name": "3",
+			"looped": false,
+			"flipX": false
+		},
+		{
+			"offsets": [
+				-12,
+				-85
+			],
+			"flipY": false,
+			"frameRate": 24,
+			"prefix": "BF 20",
+			"name": "2",
+			"looped": false,
+			"flipX": false
+		},
+		{
+			"offsets": [
+				58,
+				30
+			],
+			"flipY": false,
+			"frameRate": 24,
+			"prefix": "BF 10",
+			"name": "1",
+			"looped": false,
+			"flipX": false
+		},
+		{
+			"offsets": [
+				56,
+				-99
+			],
+			"flipY": false,
+			"frameRate": 24,
+			"prefix": "BF Go0",
+			"name": "go",
+			"looped": false,
+			"flipX": false
+		}
+	]
+}
