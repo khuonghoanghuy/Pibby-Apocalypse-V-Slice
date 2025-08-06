@@ -63,7 +63,9 @@ class SchoolGumball extends Stage {
         ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
         ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
 
-        switch (game.currentChart.songName){
+        switch (game.currentChart.songName) {
+            case "Child's Play":
+                PlayState.instance.currentStage.getGirlfriend().visible = false;
             case "My Amazing World":
                 setDropsVisible(false);
                 hideBackground(false);
@@ -111,6 +113,9 @@ class SchoolGumball extends Stage {
                     case 1024:
                         setDropsVisible(true);
                         hideBackground(true);
+                    case 1568:
+                        hideBackground(true);
+                        setDropsVisible(false);
             }
         }
     }

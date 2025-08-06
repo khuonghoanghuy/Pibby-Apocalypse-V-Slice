@@ -13,9 +13,7 @@ class CNlogo extends Module
         super('CNlogo');
     }
 
-    override function onStateChangeEnd(event) {
-        super.onCreate(event);
-
+    function init() {
         game = PlayState.instance;
 
         var logoCam:FlxCamera = new FlxCamera();

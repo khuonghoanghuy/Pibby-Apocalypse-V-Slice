@@ -25,6 +25,8 @@ class ChildsPlay extends Song {
         game = initPlayState();
         if (game == null) return;
         game.currentStage.getDad().animation.play('still', true);
+
+        ModuleHandler.getModule('CNlogo').scriptCall('createLogo');
     }
 
     override function onSongStart(event) {
@@ -38,12 +40,6 @@ class ChildsPlay extends Song {
         songStarted = true;
         game.camGame.visible = true;
         game.camHUD.visible = true;
-    }
-
-    function createDarkShader() {
-        var darkenShader = new FlxRuntimeShader(Assets.getText(Paths.frag('darklevel')));
-        darkenShader.setFloat('darkness', 0.25);
-        return darkenShader;
     }
 
     override function onUpdate(event) {

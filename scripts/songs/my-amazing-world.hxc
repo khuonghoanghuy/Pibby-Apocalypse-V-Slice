@@ -28,6 +28,7 @@ class MyAmazingWorld extends Song {
         game.currentStage.getDad().animation.play('still', true);
         game.currentStage.getGirlfriend().alpha = 0;
         
+        ModuleHandler.getModule('CNlogo').scriptCall('init');
     }
 
     override function onSongStart(event) {
@@ -49,24 +50,15 @@ class MyAmazingWorld extends Song {
         trace('I really fu*king hate step hit');
     }
 
-    function createDarkShader() {
-        var darkenShader = new FlxRuntimeShader(Assets.getText(Paths.frag('darklevel')));
-        darkenShader.setFloat('darkness', 0.25);
-        return darkenShader;
-    }
-
     override function onUpdate(event) {
         super.onUpdate(event);
+
+        game = initPlayState();
 
         if (!songStarted) {
             game.camGame.visible = false;
             game.camHUD.visible = false;
         }
-
-        game = initPlayState();
-        //game.currentCameraZoom = 0.1;
-        trace(game.currentStage.getGirlfriend());
-        //if (game != null) game.isBotPlayMode = true;
     }
 
     override function onBeatHit(event) {
@@ -105,7 +97,29 @@ class MyAmazingWorld extends Song {
                 game.currentStage.getDad().color = FlxColor.WHITE;
                 game.currentStage.getBoyfriend().color = FlxColor.WHITE;
                 ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');
+            case 1552:
+                game.camGame.visible = false;
+            case 1568:
+                game.camGame.visible = true;
+                game.currentStage.getGirlfriend().alpha = 1;
+                game.currentStage.getBoyfriend().alpha = 0.6;
+                game.currentStage.getDad().alpha = 1; // make sure lmao
                 
+                game.currentStage.getGirlfriend().color = FlxColor.BLACK;
+                game.currentStage.getBoyfriend().color = FlxColor.BLACK;
+                game.currentStage.getDad().color = FlxColor.BLACK;
+
+                game.camGame.flash(FlxColor.WHITE, 1);
+                glowFilter = new ShaderFilter(createGlowShader());
+                game.camGame.filters.push(glowFilter);
+                game.camGame.bgColor = FlxColor.WHITE;
+            case 1824:
+                game.camGame.flash(FlxColor.WHITE, 1);
+
+                game.currentStage.getDad().color = FlxColor.WHITE;
+                game.currentStage.getBoyfriend().color = FlxColor.WHITE;
+                game.currentStage.getGirlfriend().color = FlxColor.WHITE;
+                ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');                
         }
     }
 
