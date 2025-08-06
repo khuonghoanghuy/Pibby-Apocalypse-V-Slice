@@ -25,7 +25,6 @@ class ChildsPlay extends Song {
         game = initPlayState();
         if (game == null) return;
         game.currentStage.getDad().animation.play('still', true);
-        
     }
 
     override function onSongStart(event) {

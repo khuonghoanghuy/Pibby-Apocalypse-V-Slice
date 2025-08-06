@@ -1,0 +1,176 @@
+{
+	"version": "1.0.0",
+	"renderType": "multisparrow",
+	"offsets": [
+		0,
+		0
+	],
+	"danceEvery": 1,
+	"scale": 1.5,
+	"name": "Darwin (Pibby Apocalypse)",
+	"flipX": true,
+	"cameraOffsets": [
+		0,
+		0
+	],
+	"singTime": 4,
+	"startingAnimation": "idle",
+	"isPixel": false,
+	"assetPath": "characters/Darwin",
+	"healthIcon": {
+		"offsets": [
+			0,
+			0
+		],
+		"isPixel": false,
+		"scale": 1,
+		"flipX": false,
+		"id": "darwin"
+	},
+	"animations": [
+		{
+			"flipY": false,
+			"offsets": [
+				1,
+				0
+			],
+			"frameRate": 24,
+			"prefix": "Darwin Idle",
+			"flipX": false,
+			"looped": false,
+			"name": "idle"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				131,
+				-6
+			],
+			"frameRate": 24,
+			"prefix": "Darwin left",
+			"flipX": false,
+			"looped": false,
+			"name": "singLEFT"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				7,
+				-51
+			],
+			"frameRate": 24,
+			"prefix": "Darwin down",
+			"flipX": false,
+			"looped": false,
+			"name": "singDOWN"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-19,
+				52
+			],
+			"frameRate": 24,
+			"prefix": "Darwin up",
+			"flipX": false,
+			"looped": false,
+			"name": "singUP"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-27,
+				-10
+			],
+			"frameRate": 24,
+			"prefix": "Darwin right",
+			"flipX": false,
+			"looped": false,
+			"name": "singRIGHT"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				128,
+				-1
+			],
+			"frameRate": 24,
+			"prefix": "Left-Miss",
+			"flipX": false,
+			"looped": false,
+			"name": "singLEFTmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				6,
+				-28
+			],
+			"frameRate": 24,
+			"prefix": "Down-miss",
+			"flipX": false,
+			"looped": false,
+			"name": "singDOWNmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-15,
+				65
+			],
+			"frameRate": 24,
+			"prefix": "Up-miss",
+			"flipX": false,
+			"looped": false,
+			"name": "singUPmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-29,
+				11
+			],
+			"frameRate": 24,
+			"prefix": "Right-miss",
+			"flipX": false,
+			"looped": false,
+			"name": "singRIGHTmiss"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				27,
+				19
+			],
+			"frameRate": 24,
+			"prefix": "Darwin-die",
+			"flipX": false,
+			"looped": false,
+			"name": "firstDeath"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				-27,
+				7
+			],
+			"frameRate": 24,
+			"prefix": "Darwin-dead-loop",
+			"flipX": false,
+			"looped": false,
+			"name": "deathLoop"
+		},
+		{
+			"flipY": false,
+			"offsets": [
+				24,
+				79
+			],
+			"frameRate": 24,
+			"prefix": "Darwin-dead-confirm",
+			"flipX": false,
+			"looped": false,
+			"name": "deathConfirm"
+		}
+	]
+}
