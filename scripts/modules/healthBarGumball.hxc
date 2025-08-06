@@ -74,18 +74,18 @@ class healthBarGumball extends Module{
 
         if (game == null) return;
 
-        game.iconP1.x = 550;
-        game.iconP2.x = 30;
-
-        if (replaceColorShader != null){
-            //Amazing World and Retcon need this!
-            replaceColorShader.setFloat('arrayR', RGBColor[0] / 255);
-            replaceColorShader.setFloat('arrayG', RGBColor[1] / 255);
-            replaceColorShader.setFloat('arrayB', RGBColor[2] / 255);
-        }
-
-        trace(game.health);
         if (gumballHealthBar != null){
+            game.iconP1.x = 550;
+            game.iconP2.x = 30;
+
+            if (replaceColorShader != null){
+                //Amazing World and Retcon need this!
+                replaceColorShader.setFloat('arrayR', RGBColor[0] / 255);
+                replaceColorShader.setFloat('arrayG', RGBColor[1] / 255);
+                replaceColorShader.setFloat('arrayB', RGBColor[2] / 255);
+            }
+
+        
             var damagePercent = Math.ceil(game.health * 20);
             gumballHealthBar.animation.play((41 - damagePercent) + 'Part');
         }
@@ -97,8 +97,10 @@ class healthBarGumball extends Module{
 
         if (game == null) return;
 
+        if (gumballHealthBar != null){
             game.iconP1.x = 550;
             game.iconP2.x = 25;
+        }
     }
 
     function getHealthBar(){

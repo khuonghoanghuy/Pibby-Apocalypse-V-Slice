@@ -1,0 +1,117 @@
+import funkin.play.song.Song;
+import funkin.play.PlayState;
+import funkin.play.stage.StageProp;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import funkin.modding.module.ModuleHandler;
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+
+class MyAmazingWorld extends Song {
+    function new() {
+        super('my-amazing-world');
+    }
+
+    var game:PlayState;
+    var glowShader:FlxRuntimeShader;
+    var songStarted:Bool = false;
+
+    function initPlayState() {
+        return PlayState.instance;
+    }
+
+    override function onCreate(event) {
+        super.onCreate(event);
+
+        game = initPlayState();
+        if (game == null) return;
+        game.currentStage.getDad().animation.play('still', true);
+        game.currentStage.getGirlfriend().alpha = 0;
+        
+    }
+
+    override function onSongStart(event) {
+        super.onSongStart(event);
+
+        game = initPlayState();
+        songStarted = true;
+        game.camGame.visible = true;
+        game.camHUD.visible = true;
+
+        game.camHUD.fade(FlxColor.BLACK, 9.6, true);
+
+        game.currentStage.getDad().color = FlxColor.BLACK;
+        game.currentStage.getBoyfriend().color = FlxColor.BLACK;
+        glowFilter = new ShaderFilter(createGlowShader());
+        game.camGame.filters.push(glowFilter);
+        game.camGame.bgColor = FlxColor.WHITE;
+
+        trace('I really fu*king hate step hit');
+    }
+
+    function createDarkShader() {
+        var darkenShader = new FlxRuntimeShader(Assets.getText(Paths.frag('darklevel')));
+        darkenShader.setFloat('darkness', 0.25);
+        return darkenShader;
+    }
+
+    override function onUpdate(event) {
+        super.onUpdate(event);
+
+        if (!songStarted) {
+            game.camGame.visible = false;
+            game.camHUD.visible = false;
+        }
+
+        game = initPlayState();
+        //game.currentCameraZoom = 0.1;
+        trace(game.currentStage.getGirlfriend());
+        //if (game != null) game.isBotPlayMode = true;
+    }
+
+    override function onBeatHit(event) {
+        super.onBeatHit(event);
+
+        game = initPlayState();
+    }
+
+    override function onStepHit(event) {
+        super.onStepHit(event);
+
+        game = initPlayState();
+
+        switch (event.step) {
+            case 128:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 256:
+                game.currentStage.getDad().color = FlxColor.WHITE;
+                game.currentStage.getBoyfriend().color = FlxColor.WHITE;
+                ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 384:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 512:
+                game.currentStage.getDad().color = FlxColor.BLACK;
+                game.currentStage.getBoyfriend().color = FlxColor.BLACK;
+                game.camGame.flash(FlxColor.WHITE, 1);
+                glowFilter = new ShaderFilter(createGlowShader());
+                game.camGame.filters.push(glowFilter);
+                game.camGame.bgColor = FlxColor.WHITE;
+            case 768:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 1024:   
+                game.camHUD.fade(FlxColor.BLACK, 4.8, true);
+
+                game.currentStage.getDad().color = FlxColor.WHITE;
+                game.currentStage.getBoyfriend().color = FlxColor.WHITE;
+                ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');
+                
+        }
+    }
+
+    function createGlowShader() {
+        glowShader = new FlxRuntimeShader(Assets.getText(Paths.frag('glowy')));
+        glowShader.setFloat('intensity', 0.5);
+        return glowShader;
+    }
+}

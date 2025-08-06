@@ -6,7 +6,7 @@
 		"stage": "schoolGumball",
 		"noteStyle": "funkin",
 		"difficulties": ["normal"],
-		"characters": {"girlfriend": "darwinretcon", "opponent": "gumball", "player": "cropbf"}
+		"characters": {"girlfriend": "darwin", "opponent": "gumball", "player": "cropbf"}
 	},
 	"songName": "My Amazing World",
 	"timeChanges": [

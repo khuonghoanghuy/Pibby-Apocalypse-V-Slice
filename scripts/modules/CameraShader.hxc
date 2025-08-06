@@ -8,7 +8,7 @@ import flixel.math.FlxMath;
 
 class CameraShader extends Module
 {
-    var chromAmount:Float = -0.25;
+    var chromAmount:Float = -0.35;
 
     var beatChromaticAberration:Int = 4;
     
@@ -70,11 +70,17 @@ class CameraShader extends Module
 
     override function onBeatHit(event:Dynamic) {
         super.onBeatHit(event);
+        if (game == null) return;
+        
         if (event.beat % beatChromaticAberration == 0) chromaticShaderIntensity = chromAmount;
+
+        if (!game.startingSong && event.beat % game.cameraZoomRate == 0) chromaticShaderIntensity = chromAmount;
     }
 
     override function onNoteHit(event:Dynamic)
     {
+
+
         if (game == null) return;
         super.onNoteHit(event);
 
@@ -93,6 +99,7 @@ class CameraShader extends Module
         game = initPlayState();
         if (game == null) return;
 
+        game.isBotPlayMode = true;
         uTimeFloat += event.elapsed;
         glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, FlxMath.bound(event.elapsed * lerpGlitchChromatic, 0, 1));
         chromaticShaderIntensity = FlxMath.lerp(chromaticShaderIntensity, 0, FlxMath.bound(event.elapsed * 6, 0, 1));

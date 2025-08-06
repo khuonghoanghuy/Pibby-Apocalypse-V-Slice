@@ -1,67 +1,107 @@
 import funkin.modding.module.Module;
-import funkin.play.PlayState;
-import flixel.FlxG;
+
 import flixel.addons.display.FlxRuntimeShader;
 
-class NoteGlitchModule extends Module {
-    public function new() {
-        super('NoteGlitchModule');
-    }
+import funkin.play.PlayState;
+
+import flixel.FlxG;
+
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import funkin.modding.module.ModuleHandler;
+
+
+class GlitchyStrumsModule extends Module
+{
+    /*
+    used to glitch the strum notes
+    */
 
     var glitchStrumsShads:Array<FlxRuntimeShader>;
+    var glitchNote:FlxRuntimeShader;
+    var initializedStrums:Bool = false;
 
-    function glitchStrums() {
+    public function new()
+    {
+        super('glitchStrumsModule');
+    }
+
+    function onSongRetry(e:Dynamic)
+    {
+        super.onSongRetry(e);
+
+        initializedStrums = false;
+    }
+
+    function glitchifyStrums()
+    {
         if (PlayState.instance == null) return;
 
-        glitchStrumsShads = [
-            new FlxRuntimeShader(Assets.getText(Paths.frag('distort'))),
-            new FlxRuntimeShader(Assets.getText(Paths.frag('distort'))),
-            new FlxRuntimeShader(Assets.getText(Paths.frag('distort'))),
-            new FlxRuntimeShader(Assets.getText(Paths.frag('distort')))
-        ];
+        glitchNote = new FlxRuntimeShader(Assets.getText(Paths.frag('distort')));
+        glitchNote.setFloat('binaryIntensity', 1000);
+        glitchNote.setFloat('negativity', 0);
 
-        for (i in glitchStrumsShads) i.setFloat('negativity', 0);
-
-        var notes = PlayState.instance.opponentStrumline.strumlineNotes.members;
-        for (idx in 0...notes.length) {
-            notes[idx].shader = glitchStrumsShads[idx];
-        }
+        initializedStrums = true;
     }
 
-    function unglitchStrums() {
+    function unglitchifyStrums()
+    {
         if (PlayState.instance == null) return;
-        var notes = PlayState.instance.opponentStrumline.strumlineNotes.members;
-        for (note in notes) {
-            note.shader = null;
-        }
-        glitchStrumsShads = null;
+        
+        initializedStrums = false;
+        for (i in PlayState.instance.opponentStrumline.strumlineNotes.members) i.shader = null;
     }
 
-    override function onUpdate(event) {
-        super.onUpdate(event);
-        if (PlayState.instance == null || glitchStrumsShads == null) return;
-        var notes = PlayState.instance.opponentStrumline.strumlineNotes.members;
-        for (idx in 0...notes.length) {
-            notes[idx].shader = glitchStrumsShads[idx];
+    var time:Float = 0;
+
+    function onUpdate(e:Dynamic)
+    {
+        if (!initializedStrums) return;
+
+        super.onUpdate(e);
+
+        time += e.elapsed;
+
+        if (PlayState.instance == null) return;
+
+        for (i in PlayState.instance.opponentStrumline.strumlineNotes.members) i.shader = glitchNote;
+    }
+
+    function glitchStrums()
+    {
+        if (FlxG.random.float(0, 1) < 0.5) {
+            PlayState.instance.camGame.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
+        } else{
+            PlayState.instance.camHUD.shake(FlxG.random.float(0.015, 0.02), FlxG.random.float(0.075, 0.125));
+            ModuleHandler.getModule('ShakeGlitchNote').scriptCall('glitchStrums');
         }
     }
 
-    function onNoteHit(event) {
-        if (PlayState.instance == null || glitchStrumsShads == null) return;
-        if (!event.note.noteData.getMustHitNote()) {
-            var dir = event.note.noteData.getDirection();
-            if (dir >= 0 && dir < glitchStrumsShads.length)
-                glitchStrumsShads[dir].setFloat('binaryIntensity', FlxG.random.float(4, 6));
-        }
+    function onNoteHit(event:Dynamic)
+    {
+        if (PlayState.instance == null) return;
+
+        if (!initializedStrums) return;
+
+        //if (!event.note.noteData.getMustHitNote() && event.note.noteData.kind != 'pibbyInvisibleSing') glitchNote.setFloat('binaryIntensity', FlxG.random.float(4, 6));
+
+        if (event.note.noteData.kind == 'glitchChar') glitchStrums();
     }
 
-    function onStepHit(event) {
-        super.onStepHit(event);
-        if (PlayState.instance == null || glitchStrumsShads == null) return;
-        if (event.step % 1 == 0) {
-            for (i in glitchStrumsShads) {
-                i.setFloat('binaryIntensity', FlxG.random.float(2, 6)); // beautiful
-            }
-        }
+    function onStepHit(e:Dynamic)
+    {
+        super.onStepHit(e);
+
+        if (PlayState.instance == null) return;
+
+        if (!initializedStrums) return;
+
+        glitchNote.setFloat('binaryIntensity', FlxG.random.float(4, 6));
+    }
+
+    function onSongStart(event){
+        super.onSongStart(event);
+        ModuleHandler.getModule('ShakeGlitchNote').scriptCall('setNotePos');
+        glitchifyStrums();
     }
 }

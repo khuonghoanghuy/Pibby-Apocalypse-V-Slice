@@ -62,27 +62,56 @@ class SchoolGumball extends Stage {
         ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
         ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
         ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
+
+        switch (game.currentChart.songName){
+            case "My Amazing World":
+                setDropsVisible(false);
+                hideBackground(false);
+        }
     }
 
     override function onBeatHit(event) {
         super.onBeatHit(event);
-        switch (event.beat) {
-            case 0: // prevent from restart game while already showup
-                setDropsVisible(false);
-            case 96:
-                setDropsVisible(true);
+        if (game == null) return;
+
+        switch (game.currentChart.songName){
+            case "Child's Play":
+                switch (event.beat) {
+                    case 0: // prevent from restart game while already showup
+                        setDropsVisible(false);
+                    case 96:
+                        setDropsVisible(true);
+                }
         }
     }
 
     override function onStepHit(event){
         super.onStepHit(event);
-        switch (event.step) {
-            case 1216: 
-                setDropsVisible(false);
-                hideBackground(false);
-            case 1472:
-                setDropsVisible(true);
-                hideBackground(true);
+        if (game == null) return;
+
+        //trace(game.currentChart.songName);
+        switch (game.currentChart.songName){
+            case "Child's Play":
+                switch (event.step) {
+                    case 1216: 
+                        setDropsVisible(false);
+                        hideBackground(false);
+                    case 1472:
+                        setDropsVisible(true);
+                        hideBackground(true);
+                }
+            case "My Amazing World":
+                switch (event.step) {
+                    case 256:
+                        setDropsVisible(true);
+                        hideBackground(true);
+                    case 512: 
+                        setDropsVisible(false);
+                        hideBackground(false);
+                    case 1024:
+                        setDropsVisible(true);
+                        hideBackground(true);
+            }
         }
     }
 }
