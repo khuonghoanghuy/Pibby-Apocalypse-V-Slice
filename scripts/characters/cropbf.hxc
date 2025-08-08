@@ -1,0 +1,51 @@
+import funkin.play.character.MultiSparrowCharacter;
+import funkin.play.character.CharacterType;
+import funkin.play.GameOverSubState;
+import funkin.play.PlayState;
+
+import funkin.save.Save;
+
+import funkin.ui.debug.anim.DebugBoundingState;
+
+import flixel.FlxG;
+
+import StringTools;
+import Std;
+
+class CropBF_PA extends MultiSparrowCharacter
+{
+    function new()
+    {
+        super('cropbf');
+    }
+
+  function onNoteHit(event:HitNoteScriptEvent)
+  {
+    if (event.note.noteData.getMustHitNote())
+    {
+      //Thank you Borja:3
+      switch (event.note.noteData.kind)
+      {
+        case "GF Sing":
+          return;
+      }
+    }
+
+    super.onNoteHit(event);
+  }
+
+  function onNoteMiss(event:HitNoteScriptEvent)
+  {
+    if (event.note.noteData.getMustHitNote())
+    {
+      //:3
+      switch (event.note.noteData.kind)
+      {
+        case "GF Sing":
+          return;
+      }
+    }
+
+    super.onNoteMiss(event);
+  }
+}

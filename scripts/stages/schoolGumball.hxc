@@ -22,6 +22,12 @@ class SchoolGumball extends Stage {
         getNamedProp('leakdrop').shader = createCyclesdShader();
         getNamedProp('chaindrop').shader = createCyclesdShader();
         getNamedProp('doordrop').shader = createCyclesdShader();
+
+        getNamedProp('chn1').visible = false;
+        getNamedProp('chn2').visible = false;
+        getNamedProp('chn3').visible = false;
+
+        setVoidVisible(false);
     }
 
     function createCyclesdShader() {
@@ -40,10 +46,34 @@ class SchoolGumball extends Stage {
         getNamedProp('chaindrop').visible = value;
     }
 
+    function setVoidVisible(value:Bool) {
+        getNamedProp('void_background').visible = value;
+        getNamedProp('void_house').visible = value;
+        getNamedProp('void_floor').visible = value;
+        getNamedProp('void_stuff1').visible = value;
+        getNamedProp('void_stuff3').visible = value;
+        getNamedProp('void_stuff2').visible = value;
+        getNamedProp('void_stuff4').visible = value;
+    }
+
+    function changeChannel(num:Int){
+        var channelName =[
+            'chn1', 'chn2', 'chn3'
+        ];
+
+        for (name in channelName){
+            if (name != null) getNamedProp(name).visible = false;
+            trace(name);
+        }
+
+        getNamedProp('chn' + num).visible = true;
+    }
+
     function hideBackground(value:Bool) {
         var propNames = [
             'wall', 'light', 'vignette', 'vignette2', 'background'
         ];
+
         for (name in propNames) {
             var prop = getNamedProp(name);
             if (prop != null) prop.visible = value;
@@ -114,8 +144,60 @@ class SchoolGumball extends Stage {
                         setDropsVisible(true);
                         hideBackground(true);
                     case 1568:
-                        hideBackground(true);
+                        hideBackground(false);
                         setDropsVisible(false);
+                    case 1824:
+                        hideBackground(true);
+                        setDropsVisible(true);
+                    case 2080:
+                        hideBackground(false);
+                        setDropsVisible(false);
+                    case 2144:
+                        changeChannel(1);
+                    case 2176:
+						changeChannel(2);
+                        game.currentCameraZoom = 1.1;
+                    case 2208:
+                        changeChannel(3);
+                        game.currentCameraZoom = 0.8;
+                    case 2272:
+                        changeChannel(1);
+                    case 2304:
+                        changeChannel(2);
+                        game.currentCameraZoom = 1.1;
+                    case 2336:
+                        changeChannel(3);
+                        game.currentCameraZoom = 0.8;
+                    case 2400:
+                        changeChannel(1);
+                    case 2432:
+                        changeChannel(2);
+                    case 2464:
+                        changeChannel(3);
+                        game.currentCameraZoom = 0.8;
+                    case 2528:
+                        changeChannel(1);
+                    case 2560:
+                        changeChannel(2);
+                        game.currentCameraZoom = 1.1;
+                    case 2592:
+                        changeChannel(3);
+                        game.currentCameraZoom = 0.8;
+                    case 2604:
+                        changeChannel(1);
+                    case 2624:
+                        changeChannel(2);
+                        game.currentCameraZoom = 1.1;
+                    case 2632:
+                        changeChannel(3);
+                        game.currentCameraZoom = 0.8;
+                    case 2640:
+                        changeChannel(1);
+                    case 2648:
+                        changeChannel(2);
+                        game.currentCameraZoom = 0.8;
+                    case 2656:
+                        changeChannel(3);
             }
         }
     }

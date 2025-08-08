@@ -6,6 +6,271 @@
       "alpha": 1,
       "angle": 0,
       "animType": "sparrow",
+      "animations": [
+        {
+          "assetPath": null,
+          "flipX": false,
+          "flipY": false,
+          "frameIndices": [          ],
+          "frameRate": 24,
+          "looped": true,
+          "name": "idle",
+          "offsets": [
+            0,
+            0
+          ],
+          "prefix": "idle"
+        }
+      ],
+      "assetPath": "stages/void/void",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_background",
+      "position": [
+        -1056,
+        -420
+      ],
+      "scale": 1.7,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "idle",
+      "zIndex": 0
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-2",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_house",
+      "position": [
+        -402,
+        -394
+      ],
+      "scale": 1.85,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 0
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-3",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_floor",
+      "position": [
+        -809,
+        -626
+      ],
+      "scale": 2.5,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 1
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-4",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff1",
+      "position": [
+        536,
+        -90
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 2
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-6",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff3",
+      "position": [
+        -762,
+        -14
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 3
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-5",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff2",
+      "position": [
+        624,
+        688
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 3
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-7",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff4",
+      "position": [
+        -572,
+        -278
+      ],
+      "scale": 2,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 4
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/schoolGumball/channels/chn2",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "chn2",
+      "position": [
+        -574,
+        -98
+      ],
+      "scale": 1.1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 10
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/schoolGumball/channels/chn1",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "chn1",
+      "position": [
+        -572,
+        -106
+      ],
+      "scale": 1.1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 10
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/schoolGumball/channels/chn3",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "chn3",
+      "position": [
+        -1206,
+        -552
+      ],
+      "scale": 0.9,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 10
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
       "animations": [      ],
       "assetPath": "stages/schoolGumball/background",
       "blend": "",
