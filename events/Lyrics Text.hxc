@@ -1,0 +1,74 @@
+import funkin.play.event.SongEvent;
+import funkin.play.PlayState;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.module.ModuleHandler;
+
+import Reflect;
+
+class LyricsEvent extends SongEvent
+{
+    function new()
+    {
+        super('Lyrics Text');
+    }
+
+    override function getTitle()
+    {
+        return "Lyrics Text";
+    }
+
+    override function handleEvent(params:Dynamic)
+    {
+        if (PlayState.instance == null) return;
+
+        trace('Text: ' + params.value.text);
+        trace('Color: ' + params.value.color);
+        trace('Speed: ' + params.value.speed);
+        trace('Font: ' + params.value.font);
+        trace('Fade In: ' + params.value.fadeIn);
+        ModuleHandler.getModule('LyricsModule').scriptCall('setText', [params.value.text, params.value.color, params.value.speed, params.value.font, params.value.fadeIn]);
+    }
+
+    override function getEventSchema()
+    {
+        return [
+            {
+                name: "text",
+                title: "Text",
+                defaultValue: "",
+                type: "string"
+            },
+            {
+                name: "color",
+                title: "Color",
+                defaultValue: "ffffff",
+                type: "string",
+                
+            },
+            {
+                name: "speed",
+                title: "Speed",
+                defaultValue: "1",
+                step: 0.25,
+                type: "float",
+                units: "steps"
+            },
+            {
+                name: "font",
+                title: "Font",
+                defaultValue: "",
+                type: "string"
+            },
+            {
+                name: "fadeIn",
+                title: "Fade In",
+                defaultValue: "",
+                type: "bool"
+            }
+        ];
+    }
+}

@@ -1,17 +1,52 @@
 {
-	"timeFormat": "ms",
-	"artist": "Corn",
-	"charter": "Unknown",
-	"playData": {
-		"stage": "schoolGumball",
-		"noteStyle": "funkin",
-		"difficulties": ["normal"],
-		"characters": {"girlfriend": "darwin", "opponent": "gumball", "player": "cropbf"}
-	},
-	"songName": "My Amazing World",
-	"timeChanges": [
-		{"t": 0, "bpm": 200}
-	],
-	"generatedBy": "Psych Engine v1.0.4 - Chart Editor V-Slice Exporter",
-	"version": "2.2.3"
+  "version": "2.2.4",
+  "songName": "My Amazing World",
+  "artist": "Corn",
+  "charter": "Unknown",
+  "divisions": 96,
+  "looped": false,
+  "offsets": {
+    "instrumental": 0,
+    "altInstrumentals": {    },
+    "vocals": {    },
+    "altVocals": {    }
+  },
+  "playData": {
+    "songVariations": [    ],
+    "difficulties": [
+      "normal"
+    ],
+    "characters": {
+      "player": "cropbf",
+      "girlfriend": "darwin",
+      "opponent": "gumball",
+      "instrumental": "",
+      "altInstrumentals": [      ]
+      
+    },
+    "stage": "schoolGumball",
+    "noteStyle": "funkin",
+    "ratings": {
+      "normal": 9
+    },
+    "previewStart": 0,
+    "previewEnd": 15000
+  },
+  "generatedBy": "Friday Night Funkin' - v0.7.3",
+  "timeFormat": "ms",
+  "timeChanges": [
+    {
+      "t": 0,
+      "b": 0,
+      "bpm": 200,
+      "n": 4,
+      "d": 4,
+      "bt": [
+        4,
+        4,
+        4,
+        4
+      ]
+    }
+  ]
 }

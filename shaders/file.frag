@@ -1,4 +1,5 @@
 #pragma header
+
 uniform float iTime;
 #define iChannel0 bitmap
 #define iChannel1 bitmap
@@ -41,7 +42,7 @@ vec3 getVideo(vec2 uv)
 	float window = 1./(1.+20.*(look.y-mod(iTime/4.,1.))*(look.y-mod(iTime/4.,1.)));
 	look.x = look.x + sin(look.y*10. + iTime)/50.*onOff(4.,4.,.3)*(1.+cos(iTime*80.))*window;
 	float vShift = 0.4*onOff(2.,3.,.9)*(sin(iTime)*sin(iTime*20.) + 
-										 (0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
+										(0.5 + 0.1*sin(iTime*200.)*cos(iTime)));
 	look.y = mod(look.y + vShift, 1.);
 	vec3 video = vec3(texture2D(iChannel0,look));
 	return video;
@@ -57,12 +58,7 @@ vec2 screenDistort(vec2 uv)
 
 void main()
 {
-vec2 fragCoord = openfl_TextureCoordv*openfl_TextureSize;
-vec2 iResolution = openfl_TextureSize;
-vec2 uv = fragCoord.xy / iResolution.xy;
-
-//vec2 fragCoord = openfl_TextureCoordv * iResolution;
-	//vec2 uv = fragCoord.xy / iResolution.xy;
+	vec2 uv = openfl_TextureCoordv;
 	uv = screenDistort(uv);
 	vec3 video = getVideo(uv);
 	float vigAmt = 3.+.3*sin(iTime + 5.*cos(iTime*5.));

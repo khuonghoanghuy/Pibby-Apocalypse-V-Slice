@@ -1,5 +1,9 @@
 import funkin.play.stage.Stage;
 import funkin.play.PlayState;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import funkin.Conductor;
+import flixel.math.FlxMath;
 import funkin.modding.base.ScriptedFlxRuntimeShader;
 import flixel.addons.display.FlxRuntimeShader;
 import funkin.modding.module.ModuleHandler;
@@ -11,6 +15,7 @@ class SchoolGumball extends Stage {
     }
 
     var game:PlayState;
+    var speed:Float = 1.5;
 
     override function buildStage(event) {
         super.buildStage(event);
@@ -26,8 +31,10 @@ class SchoolGumball extends Stage {
         getNamedProp('chn1').visible = false;
         getNamedProp('chn2').visible = false;
         getNamedProp('chn3').visible = false;
+    }
 
-        setVoidVisible(false);
+    override function onCreate(event){
+        super.onCreate(event);
     }
 
     function createCyclesdShader() {
@@ -46,14 +53,14 @@ class SchoolGumball extends Stage {
         getNamedProp('chaindrop').visible = value;
     }
 
-    function setVoidVisible(value:Bool) {
-        getNamedProp('void_background').visible = value;
-        getNamedProp('void_house').visible = value;
-        getNamedProp('void_floor').visible = value;
-        getNamedProp('void_stuff1').visible = value;
-        getNamedProp('void_stuff3').visible = value;
-        getNamedProp('void_stuff2').visible = value;
-        getNamedProp('void_stuff4').visible = value;
+    function setVoidVisible(value:Float) {
+        getNamedProp('void_background').alpha = value;
+        getNamedProp('void_house').alpha = value;
+        getNamedProp('void_floor').alpha = value;
+        getNamedProp('void_stuff1').alpha = value;
+        getNamedProp('void_stuff3').alpha = value;
+        getNamedProp('void_stuff2').alpha = value;
+        getNamedProp('void_stuff4').alpha = value;
     }
 
     function changeChannel(num:Int){
@@ -63,7 +70,6 @@ class SchoolGumball extends Stage {
 
         for (name in channelName){
             if (name != null) getNamedProp(name).visible = false;
-            trace(name);
         }
 
         getNamedProp('chn' + num).visible = true;
@@ -99,6 +105,7 @@ class SchoolGumball extends Stage {
             case "My Amazing World":
                 setDropsVisible(false);
                 hideBackground(false);
+                setVoidVisible(0.00001);
         }
     }
 
@@ -115,6 +122,28 @@ class SchoolGumball extends Stage {
                         setDropsVisible(true);
                 }
         }
+    }
+
+    override function onUpdate(event){
+        if (game == null) return;
+
+        getNamedProp('void_house').angle = 4 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+        getNamedProp('void_stuff1').angle = 2 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        getNamedProp('void_stuff2').angle = 360 * Math.sin(Conductor.instance.songPosition / (30000/speed));
+        getNamedProp('void_stuff3').angle = 6 * Math.sin(Conductor.instance.songPosition / (5000/speed));
+        getNamedProp('void_stuff4').angle = 3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+
+        //game.currentCameraZoom = 0.2;
+        super.onUpdate(event);
+
+        /*setProperty('house.angle',8 * math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (1500/speed) ))
+        setProperty('rock.angle',3* math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (1700/speed) ))
+        setProperty('wtf.angle',4.5 * math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (3000/speed)))
+        setProperty('rock2.angle',2 * math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (2500/speed)))
+        setProperty('rock3.angle',360 * math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (20000/(speed*1.5)) ))
+        setProperty('rock4.angle',6* math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (5000/speed)))
+        setProperty('house.y', -200 + math.sin((getPropertyFromClass('backend.Conductor', 'songPosition') / 2000) * ((getPropertyFromClass('backend.Conductor', 'bpm')/ 60) * 1.0)) * 40)
+        setProperty('wtf.y', -200 + math.sin((getPropertyFromClass('backend.Conductor', 'songPosition') / (3000/speed)) * ((getPropertyFromClass('backend.Conductor', 'bpm')/ 60) * 1.0)) * 60)*/
     }
 
     override function onStepHit(event){
@@ -198,6 +227,17 @@ class SchoolGumball extends Stage {
                         game.currentCameraZoom = 0.8;
                     case 2656:
                         changeChannel(3);
+                    case 2688:
+                        var channelName =[
+                            'chn1', 'chn2', 'chn3'
+                        ];
+
+                        for (name in channelName){
+                            if (name != null) getNamedProp(name).visible = false;
+                        }
+
+                        game.camHUD.flash(FlxColor.WHITE, 1, true);
+                        setVoidVisible(1);
             }
         }
     }
