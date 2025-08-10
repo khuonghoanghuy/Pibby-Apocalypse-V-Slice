@@ -188,6 +188,14 @@
 }
     },
     {
+      "t": 37200,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1
+}
+    },
+    {
       "t": 37350,
       "e": "ZoomCamera",
       "v": {
@@ -209,25 +217,6 @@
     },
     {
       "t": 38400,
-      "e": "ZoomCamera",
-      "v": {
-	"ease": "circOut",
-	"duration": 6,
-	"mode": "stage",
-	"zoom": 0.9
-}
-    },
-    {
-      "t": 38400,
-      "e": "Cinematics",
-      "v": {
-	"ease": "",
-	"speed": 16,
-	"distance": 60
-}
-    },
-    {
-      "t": 38400,
       "e": "FocusCamera",
       "v": {
 	"x": 0,
@@ -238,11 +227,30 @@
 }
     },
     {
-      "t": 38400,
+      "t": 38475,
+      "e": "ZoomCamera",
+      "v": {
+	"ease": "circOut",
+	"duration": 6,
+	"mode": "stage",
+	"zoom": 0.9
+}
+    },
+    {
+      "t": 38550,
       "e": "SetCameraBop",
       "v": {
 	"rate": 2,
 	"intensity": 1.5
+}
+    },
+    {
+      "t": 38625,
+      "e": "Cinematics",
+      "v": {
+	"ease": "cubeOut",
+	"speed": 16,
+	"distance": 60
 }
     },
     {
@@ -310,6 +318,14 @@
 }
     },
     {
+      "t": 75600,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1
+}
+    },
+    {
       "t": 76800,
       "e": "ZoomCamera",
       "v": {
@@ -370,6 +386,14 @@
 }
     },
     {
+      "t": 81600,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 1,
+	"intensity": 1.5
+}
+    },
+    {
       "t": 86400,
       "e": "FocusCamera",
       "v": {
@@ -393,11 +417,12 @@
     },
     {
       "t": 96000,
-      "e": "PlayAnimation",
+      "e": "ZoomCamera",
       "v": {
-	"target": "dad",
-	"anim": "laugh",
-	"force": true
+	"duration": 6,
+	"ease": "INSTANT",
+	"zoom": 1.3,
+	"mode": "stage"
 }
     },
     {
@@ -413,12 +438,19 @@
     },
     {
       "t": 96000,
-      "e": "ZoomCamera",
+      "e": "PlayAnimation",
       "v": {
-	"duration": 6,
-	"ease": "INSTANT",
-	"zoom": 1.3,
-	"mode": "stage"
+	"target": "dad",
+	"anim": "laugh",
+	"force": true
+}
+    },
+    {
+      "t": 96000,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1
 }
     },
     {
@@ -429,6 +461,14 @@
 	"ease": "cubeOut",
 	"zoom": 1,
 	"mode": "stage"
+}
+    },
+    {
+      "t": 97200,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 2,
+	"intensity": 1.5
 }
     },
     {
@@ -486,6 +526,124 @@
 }
     },
     {
+      "t": 116400,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1.5
+}
+    },
+    {
+      "t": 116400,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "GUM",
+	"fadeIn": true,
+	"color": "ff784b",
+	"font": "Gumball.ttf",
+	"speed": 6
+}
+    },
+    {
+      "t": 116550,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "GUMBALL",
+	"fadeIn": true,
+	"color": "ff784b",
+	"font": "Gumball.ttf",
+	"speed": 6
+}
+    },
+    {
+      "t": 117037.5,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "D-D-D-D-D",
+	"fadeIn": true,
+	"font": "Gumball.ttf",
+	"speed": 0,
+	"color": "52a5eb"
+}
+    },
+    {
+      "t": 117075,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "D-D",
+	"fadeIn": true,
+	"font": "Gumball.ttf",
+	"speed": 0,
+	"color": "52a5eb"
+}
+    },
+    {
+      "t": 117112.5,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "D-D-D",
+	"fadeIn": true,
+	"speed": 0,
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
+}
+    },
+    {
+      "t": 117150,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "D-D-D-D",
+	"fadeIn": true,
+	"speed": 0,
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
+}
+    },
+    {
+      "t": 117187.5,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "D-D-D-D-D",
+	"fadeIn": true,
+	"speed": 0,
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
+}
+    },
+    {
+      "t": 117225,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "D-D-D-D-D-D",
+	"fadeIn": true,
+	"speed": 0,
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
+}
+    },
+    {
+      "t": 117300,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "DARWIN?",
+	"fadeIn": true,
+	"speed": 0,
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
+}
+    },
+    {
+      "t": 117600,
+      "e": "Lyrics Text",
+      "v": {
+	"text": "DARWIN?",
+	"fadeIn": false,
+	"font": "Gumball.ttf",
+	"speed": 8,
+	"color": "52a5eb"
+}
+    },
+    {
       "t": 117600,
       "e": "FocusCamera",
       "v": {
@@ -494,6 +652,15 @@
 	"y": 0,
 	"char": 2,
 	"ease": "CLASSIC"
+}
+    },
+    {
+      "t": 117600,
+      "e": "Cinematics",
+      "v": {
+	"ease": "cubeOut",
+	"speed": 12,
+	"distance": 80
 }
     },
     {
@@ -529,6 +696,33 @@
 }
     },
     {
+      "t": 136800,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 2,
+	"intensity": 1.5
+}
+    },
+    {
+      "t": 136800,
+      "e": "Cinematics",
+      "v": {
+	"ease": "cubeOut",
+	"speed": 12,
+	"distance": 0
+}
+    },
+    {
+      "t": 136800,
+      "e": "ZoomCamera",
+      "v": {
+	"ease": "cubeOut",
+	"duration": 8,
+	"zoom": 1.1,
+	"mode": "stage"
+}
+    },
+    {
       "t": 146400,
       "e": "FocusCamera",
       "v": {
@@ -560,6 +754,14 @@
 }
     },
     {
+      "t": 156000,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1.5
+}
+    },
+    {
       "t": 158400,
       "e": "FocusCamera",
       "v": {
@@ -568,6 +770,83 @@
 	"y": 0,
 	"char": 1,
 	"ease": "CLASSIC"
+}
+    },
+    {
+      "t": 158400,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": true,
+	"text": "THE DARKNESS...",
+	"color": "52a5eb",
+	"speed": 0,
+	"font": "Gumball.ttf"
+}
+    },
+    {
+      "t": 159000,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": false,
+	"text": "THE DARKNESS...",
+	"speed": 1,
+	"font": "Gumball.ttf",
+	"color": "52a5eb"
+}
+    },
+    {
+      "t": 159600,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": true,
+	"text": "IT'S",
+	"font": "Gumball.ttf",
+	"color": "52a5eb",
+	"speed": 0
+}
+    },
+    {
+      "t": 159750,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": true,
+	"text": "IT'S CALL",
+	"speed": 0,
+	"font": "Gumball.ttf",
+	"color": "52a5eb"
+}
+    },
+    {
+      "t": 159900,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": true,
+	"text": "IT'S CALLING",
+	"font": "Gumball.ttf",
+	"color": "52a5eb",
+	"speed": 0
+}
+    },
+    {
+      "t": 160050,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": true,
+	"text": "IT'S CALLING ME...",
+	"speed": 0,
+	"font": "Gumball.ttf",
+	"color": "52a5eb"
+}
+    },
+    {
+      "t": 160275,
+      "e": "Lyrics Text",
+      "v": {
+	"fadeIn": false,
+	"text": "IT'S CALLING ME...",
+	"font": "Gumball.ttf",
+	"color": "52a5eb",
+	"speed": 2
 }
     },
     {
@@ -580,7 +859,7 @@
 }
     },
     {
-      "t": 160875,
+      "t": 160800,
       "e": "FocusCamera",
       "v": {
 	"duration": 4,
@@ -588,6 +867,14 @@
 	"y": 500,
 	"char": -1,
 	"ease": "INSTANT"
+}
+    },
+    {
+      "t": 160800,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 1,
+	"intensity": 1.5
 }
     },
     {
@@ -610,10 +897,18 @@
 }
     },
     {
-      "t": 180018.75,
+      "t": 180000,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1.5
+}
+    },
+    {
+      "t": 180025,
       "e": "ZoomCamera",
       "v": {
-	"ease": "INSTANT",
+	"ease": "quadInOut",
 	"duration": 64,
 	"zoom": 1.1,
 	"mode": "stage"
@@ -629,6 +924,14 @@
 }
     },
     {
+      "t": 184800,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 1,
+	"intensity": 1.5
+}
+    },
+    {
       "t": 199200,
       "e": "FocusCamera",
       "v": {
@@ -640,11 +943,19 @@
 }
     },
     {
+      "t": 199200,
+      "e": "SetCameraBop",
+      "v": {
+	"rate": 4,
+	"intensity": 1.5
+}
+    },
+    {
       "t": 200850,
       "e": "ZoomCamera",
       "v": {
 	"duration": 10,
-	"ease": "sineIn",
+	"ease": "expoIn",
 	"zoom": 2,
 	"mode": "stage"
 }
@@ -654,9 +965,20 @@
       "e": "ZoomCamera",
       "v": {
 	"duration": 8,
-	"ease": "circOut",
-	"zoom": 1,
+	"ease": "cubeOut",
+	"zoom": 0.7,
 	"mode": "stage"
+}
+    },
+    {
+      "t": 201600,
+      "e": "FocusCamera",
+      "v": {
+	"duration": 4,
+	"x": 0,
+	"y": 0,
+	"char": 1,
+	"ease": "CLASSIC"
 }
     }
   ],

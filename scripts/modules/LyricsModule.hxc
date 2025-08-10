@@ -1,0 +1,127 @@
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.text.FlxTextBorderStyle;
+
+import funkin.play.PlayState;
+
+import funkin.Preferences;
+import funkin.Paths;
+
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+
+import funkin.modding.module.Module;
+
+import funkin.Conductor;
+
+import Reflect;
+
+class LyricsModuleEvent extends Module
+{
+    var lyricTxt:FlxText;
+
+    var camOther:FlxCamera;
+
+    var fadeTween:FlxTween = null;
+    
+    var game:PlayState;
+
+    function new()
+    {
+        super("LyricsModule");
+    }
+
+    function onSongLoaded(e)
+    {
+        super.onSongLoaded(e);
+
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        camOther = new FlxCamera();
+
+        FlxG.cameras.add(camOther, false);
+        camOther.bgColor = 0;
+
+        lyricTxt = new FlxText(0, game.healthBarBG.y - 72, FlxG.width, "", 20);
+		lyricTxt.setFormat(Paths.font('vcr.ttf'), 48, 'ffffff', 'center', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		lyricTxt.scrollFactor.set();
+		lyricTxt.borderSize = 1.25;
+        lyricTxt.text = ' ';
+        lyricTxt.color = FlxColor.fromString('#ffffff');
+        lyricTxt.font = Paths.font('Gumball.ttf');
+		lyricTxt.alpha = 0.00001;
+        fadeTween = FlxTween.tween(lyricTxt, {alpha: 1}, (Conductor.instance.stepLengthMs * 1) / 1000, {ease: FlxEase.linear});
+        fadeTween = FlxTween.tween(lyricTxt, {alpha: 0.00001}, (Conductor.instance.stepLengthMs * 1) / 1000, {ease: FlxEase.linear});
+        lyricTxt.camera = camOther;
+		
+        if (Preferences.downscroll) lyricTxt.y = game.healthBarBG.y + 72;
+		
+		game.add(lyricTxt);
+
+        Paths.font('Gumball.ttf');
+        Paths.font('Thunderman.ttf');
+    }
+
+    function onSongStart(e:Dynamic)
+    {
+        super.onSongStart(e);
+    }
+
+    function setText(txt:String, color:String, speed:Float, fontName:String, fadeIn:Bool)
+    {
+        if (fadeTween != null) fadeTween.cancel();
+        
+        lyricTxt.text = txt;
+        lyricTxt.color = FlxColor.fromString('#' + color);
+        lyricTxt.font = Paths.font(fontName);
+        if (speed > 0){
+            if (fadeIn == true){
+                lyricTxt.alpha = 0.00001;
+                fadeTween = FlxTween.tween(lyricTxt, {alpha: 1}, (Conductor.instance.stepLengthMs * speed) / 1000, {ease: FlxEase.linear});
+            }else{
+                lyricTxt.alpha = 1;
+                fadeTween = FlxTween.tween(lyricTxt, {alpha: 0.00001}, (Conductor.instance.stepLengthMs * speed) / 1000, {ease: FlxEase.linear});
+            }
+        }else{
+            if (fadeIn == true){
+                lyricTxt.alpha = 1;
+            }else{
+                lyricTxt.alpha = 0.00001;
+            }
+        }
+    }
+
+    function onSongRetry(e:Dynamic)
+    {
+        super.onSongRetry(e);
+        lyricTxt.alpha = 0.00001;
+    }
+
+    function onDestroy(e:Dynamic)
+    {
+        super.onDestroy(e);
+        if (game == null) return;
+            lyricTxt.destroy();
+    }
+
+    function onPause(e:Dynamic)
+    {
+        super.onPause(e);
+
+        if (e.cancelled) return;
+
+        if (fadeTween != null) fadeTween.active = false;
+    }
+
+    function onResume(e:Dynamic)
+    {
+        super.onResume(e);
+
+        if (fadeTween != null) fadeTween.active = true;
+    }
+}

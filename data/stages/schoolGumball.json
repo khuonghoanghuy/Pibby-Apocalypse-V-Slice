@@ -65,7 +65,7 @@
         1
       ],
       "startingAnimation": "",
-      "zIndex": 0
+      "zIndex": 2
     },
     {
       "alpha": 1,
@@ -90,7 +90,7 @@
         1
       ],
       "startingAnimation": "",
-      "zIndex": 1
+      "zIndex": 3
     },
     {
       "alpha": 1,
@@ -156,16 +156,16 @@
       "isPixel": false,
       "name": "void_stuff2",
       "position": [
-        624,
-        688
+        -424,
+        0
       ],
-      "scale": 1,
+      "scale": 1.8,
       "scroll": [
         1,
         1
       ],
       "startingAnimation": "",
-      "zIndex": 3
+      "zIndex": 1
     },
     {
       "alpha": 1,
@@ -207,7 +207,7 @@
       "name": "chn2",
       "position": [
         -574,
-        -98
+        -198
       ],
       "scale": 1.1,
       "scroll": [
@@ -232,7 +232,7 @@
       "name": "chn1",
       "position": [
         -572,
-        -106
+        -156
       ],
       "scale": 1.1,
       "scroll": [
@@ -257,7 +257,7 @@
       "name": "chn3",
       "position": [
         -1206,
-        -552
+        -602
       ],
       "scale": 0.9,
       "scroll": [

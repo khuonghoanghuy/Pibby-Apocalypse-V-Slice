@@ -52,17 +52,9 @@ class MyAmazingWorld extends Song {
         game.camGame.bgColor = FlxColor.WHITE;
 
         trace('I really fu*king hate step hit');
-
-        monitorShader = new FlxRuntimeShader(Assets.getText(Paths.frag('Monitor'))); // Shader TV
-        fileShader = new FlxRuntimeShader(Assets.getText(Paths.frag('file'))); // Shader File
-        fileShader.setFloat('iTime', 1000);
-
-        game.camGame.filters.push(new ShaderFilter(monitorShader));
-        game.camGame.filters.push(new ShaderFilter(fileShader));
-        game.camHUD.filters.push(new ShaderFilter(monitorShader));
     }
 
-    var uTimeFloat:Float;
+    var uTimeFloat:Float = 0;
 
     override function onUpdate(event) {
         super.onUpdate(event);
@@ -98,6 +90,7 @@ class MyAmazingWorld extends Song {
                 game.currentStage.getBoyfriend().color = FlxColor.WHITE;
                 ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');
                 game.camGame.flash(FlxColor.WHITE, 1);
+                game.camGame.bgColor = FlxColor.BLACK;
             case 384:
                 game.camGame.flash(FlxColor.WHITE, 1);
             case 512:
@@ -115,6 +108,7 @@ class MyAmazingWorld extends Song {
                 game.currentStage.getDad().color = FlxColor.WHITE;
                 game.currentStage.getBoyfriend().color = FlxColor.WHITE;
                 ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');
+                game.camGame.bgColor = FlxColor.BLACK;
             case 1552:
                 game.camGame.visible = false;
             case 1568:
@@ -138,6 +132,7 @@ class MyAmazingWorld extends Song {
                 game.currentStage.getBoyfriend().color = FlxColor.WHITE;
                 game.currentStage.getGirlfriend().color = FlxColor.WHITE;
                 ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch'); 
+                game.camGame.bgColor = FlxColor.BLACK;
             case 2080:
                 game.camHUD.flash(FlxColor.WHITE, 1);   
 
@@ -162,10 +157,20 @@ class MyAmazingWorld extends Song {
                 game.currentStage.getBoyfriend().alpha = 0;
                 ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch'); 
 
+                monitorShader = new FlxRuntimeShader(Assets.getText(Paths.frag('Monitor'))); // Shader TV
+                fileShader = new FlxRuntimeShader(Assets.getText(Paths.frag('file'))); // Shader File
                 
-
+                game.camGame.filters.push(new ShaderFilter(monitorShader));
+                game.camGame.filters.push(new ShaderFilter(fileShader));
+                game.camHUD.filters.push(new ShaderFilter(monitorShader));
+                game.camGame.bgColor = FlxColor.WHITE;
+            case 2400:
+                game.camGame.fade(FlxColor.BLACK, 4.8, true);
             case 2464:
                 game.camGame.flash(FlxColor.WHITE, 1);
+            case 2688:
+                game.currentStage.getBoyfriend().alpha = 1;
+                ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch'); 
 
         }
     }
