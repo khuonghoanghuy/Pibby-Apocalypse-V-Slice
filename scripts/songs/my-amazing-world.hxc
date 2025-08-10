@@ -58,7 +58,7 @@ class MyAmazingWorld extends Song {
 
     override function onUpdate(event) {
         super.onUpdate(event);
-        uTimeFloat += event.elapsed * 1000;
+        uTimeFloat += event.elapsed;
 
         game = initPlayState();
         if (game == null) return;

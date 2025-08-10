@@ -8,6 +8,7 @@ import funkin.modding.base.ScriptedFlxRuntimeShader;
 import flixel.addons.display.FlxRuntimeShader;
 import funkin.modding.module.ModuleHandler;
 import flixel.util.FlxColor;
+import flixel.FlxSprite;
 
 class SchoolGumball extends Stage {
     function new() {
@@ -33,8 +34,17 @@ class SchoolGumball extends Stage {
         getNamedProp('chn3').visible = false;
     }
 
+    var blackScreen:FlxSprite;
+
     override function onCreate(event){
         super.onCreate(event);
+
+        blackScreen = new FlxSprite(0, 0);
+        blackScreen.makeGraphic(1280 * 100, 720 * 100, 0x000000);
+        blackScreen.screenCenter(0x11); // using XY
+        blackScreen.alpha = 0.4;
+        blackScreen.camera = PlayState.instance.camHUD;
+        // PlayState.instance.add(blackScreen);
     }
 
     function createCyclesdShader() {
