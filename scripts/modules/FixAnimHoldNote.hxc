@@ -1,0 +1,76 @@
+import funkin.play.PlayState;
+import funkin.modding.module.Module;
+
+class FixAnimHoldNote extends Module{
+    var game:PlayState;
+    //var 
+
+    override function onUpdate(event){
+        game = PlayState.instance;
+        if (game == null) return;
+        super.onUpdate(event);
+
+        for (holdNote in game.opponentStrumline.holdNotes.members)
+        {
+            if (holdNote == null || !holdNote.alive) continue;
+
+            // While the hold note is being hit, and there is length on the hold note...
+            if (holdNote.hitNote && !holdNote.missedNote && holdNote.sustainLength > 0)
+            {
+                // Make sure the opponent keeps singing while the note is held.
+                if (game.currentStage != null && game.currentStage.getDad() != null && game.currentStage.getDad().isSinging())
+                {
+                    game.currentStage.getDad().holdTimer = 0;
+                    onSustainNote(true, holdNote.noteData.kind, holdNote.noteData.getDirection());
+                }
+            }
+        }
+
+        for (holdNote in game.playerStrumline.holdNotes.members)
+        {
+            if (holdNote == null || !holdNote.alive) continue;
+
+            // While the hold note is being hit, and there is length on the hold note...
+            if (holdNote.hitNote && !holdNote.missedNote && holdNote.sustainLength > 0)
+            {
+                // Make sure the opponent keeps singing while the note is held.
+                if (game.currentStage != null && game.currentStage.getBoyfriend() != null && game.currentStage.getBoyfriend().isSinging())
+                {
+                    game.currentStage.getDad().holdTimer = 0;
+                    onSustainNote(false, holdNote.noteData.kind, holdNote.noteData.getDirection());
+                }
+            }
+        }
+    }
+
+    function onNoteHit(e:Dynamic)
+    {
+        game = PlayState.instance;
+        super.onNoteHit(e);
+
+        if (game == null) return;
+    }
+
+    function onSustainNote(isOpponent, type, direction){
+        if (isOpponent){
+            if (type == null){
+                game.currentStage.getDad().playSingAnimation(direction, false);
+                game.currentStage.getDad().holdTimer = 0;
+            }
+        }
+
+        if (!isOpponent){
+            if (type == null){
+                game.currentStage.getBoyfriend().playSingAnimation(direction, false);
+                game.currentStage.getBoyfriend().holdTimer = 0;
+            }
+
+            if (type == 'GF Sing'){
+                game.currentStage.getGirlfriend().playSingAnimation(direction, false);
+                game.currentStage.getGirlfriend().holdTimer = 0;
+            }
+        }
+        trace(type);
+    }
+
+}

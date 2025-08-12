@@ -6,6 +6,8 @@ import flixel.util.FlxColor;
 import funkin.modding.module.ModuleHandler;
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
+import funkin.play.components.HealthIcon;
+import funkin.Conductor;
 import flixel.FlxG;
 
 class MyAmazingWorld extends Song {
@@ -18,6 +20,7 @@ class MyAmazingWorld extends Song {
     var monitorShader:FlxRuntimeShader;
     var fileShader:FlxRuntimeShader;
     var songStarted:Bool = false;
+    var darwinIcon:HealthIcon;
 
     function initPlayState() {
         return PlayState.instance;
@@ -36,6 +39,10 @@ class MyAmazingWorld extends Song {
 
     override function onSongStart(event) {
         super.onSongStart(event);
+
+        darwinIcon = ModuleHandler.getModule('MakeNewIcon').scriptCall('createNewIcon', ['Darwin', false, game.currentStage.getGirlfriend()]);
+        darwinIcon.cameras = [game.camHUD];
+        game.add(darwinIcon);
 
         game = initPlayState();
         songStarted = true;
@@ -82,7 +89,6 @@ class MyAmazingWorld extends Song {
 
     override function onStepHit(event) {
         super.onStepHit(event);
-
         game = initPlayState();
 
         switch (event.step) {

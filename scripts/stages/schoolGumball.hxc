@@ -133,7 +133,7 @@ class SchoolGumball extends Stage {
         getNamedProp('void_stuff3').angle = 6 * Math.sin(Conductor.instance.songPosition / (5000/speed));
         getNamedProp('void_stuff4').angle = 3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
 
-        //game.currentCameraZoom = 0.2;
+        game.currentCameraZoom = 0.2;
         super.onUpdate(event);
 
         /*setProperty('house.angle',8 * math.sin(getPropertyFromClass('backend.Conductor', 'songPosition') / (1500/speed) ))

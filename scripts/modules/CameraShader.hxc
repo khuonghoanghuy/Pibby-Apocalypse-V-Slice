@@ -3,6 +3,7 @@ import funkin.modding.base.ScriptedFlxRuntimeShader;
 import funkin.play.PlayState;
 import openfl.filters.ShaderFilter;
 import flixel.addons.display.FlxRuntimeShader;
+import funkin.play.notes.SustainTrail;
 import flixel.FlxG;
 import flixel.math.FlxMath;
 
@@ -86,6 +87,17 @@ class CameraShader extends Module
 
         if (!event.note.noteData.getMustHitNote() && FlxG.random.bool(50) && event.note.noteData.kind != 'pibbyInvisibleSing') glitchShaderIntensity = FlxG.random.float(0.2, 0.8);
     }
+
+    /*public override function setupHoldNoteGraphic(noteStyle)
+    {
+        super.setupHoldNoteGraphic(noteStyle);
+
+        if (game == null) return;
+        super.onNoteHit(event);
+
+        trace(noteStyle);
+        
+    }*/
 
     override function handleEvent(params:Dynamic)
     {

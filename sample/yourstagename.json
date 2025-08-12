@@ -630,7 +630,34 @@
       "isPixel": false,
       "name": "vignette2",
       "position": [
-        -572,
+        -552,
+        -106
+      ],
+      "scale": [
+	0.8,
+	0.78
+],"scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 402
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "image7",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "vignette3",
+      "position": [
+        -552,
         -106
       ],
       "scale": [

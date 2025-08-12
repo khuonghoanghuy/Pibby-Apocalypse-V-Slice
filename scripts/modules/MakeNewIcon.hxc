@@ -1,0 +1,16 @@
+import funkin.play.components.HealthIcon;
+import funkin.modding.module.Module;
+import funkin.play.PlayState;
+
+class NewIcon extends Module{
+    function new(){
+        super('MakeNewIcon');
+    }
+
+    function createNewIcon(name, isOpponent, character){
+        var newIcon:HealthIcon = new HealthIcon(name, isOpponent? 1 : 0);
+        newIcon.configure(character._data?.healthIcon);
+
+        return newIcon;
+    }
+}
