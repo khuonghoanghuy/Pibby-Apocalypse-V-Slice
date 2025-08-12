@@ -75,9 +75,6 @@ class healthBarGumball extends Module{
         if (game == null) return;
 
         if (gumballHealthBar != null){
-            game.iconP1.x = 550;
-            game.iconP2.x = 30;
-
             if (replaceColorShader != null){
                 //Amazing World and Retcon need this!
                 replaceColorShader.setFloat('arrayR', RGBColor[0] / 255);
@@ -96,11 +93,6 @@ class healthBarGumball extends Module{
         game = PlayState.instance;
 
         if (game == null) return;
-
-        if (gumballHealthBar != null){
-            game.iconP1.x = 550;
-            game.iconP2.x = 25;
-        }
     }
 
     function getHealthBar(){

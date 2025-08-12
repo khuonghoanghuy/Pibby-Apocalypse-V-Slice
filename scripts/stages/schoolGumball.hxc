@@ -105,10 +105,6 @@ class SchoolGumball extends Stage {
         game.scoreText.size = 20;
         game.scoreText.color = FlxColor.fromRGB(49, 176, 189);
 
-        ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
-        ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
-        ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
-
         switch (game.currentChart.songName) {
             case "Child's Play":
                 PlayState.instance.currentStage.getGirlfriend().visible = false;
@@ -143,7 +139,7 @@ class SchoolGumball extends Stage {
         getNamedProp('void_stuff3').angle = 6 * Math.sin(Conductor.instance.songPosition / (5000/speed));
         getNamedProp('void_stuff4').angle = 3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
 
-        game.currentCameraZoom = 0.2;
+        //game.currentCameraZoom = 0.2;
         super.onUpdate(event);
     }
 

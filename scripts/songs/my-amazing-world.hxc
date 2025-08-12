@@ -9,6 +9,7 @@ import openfl.filters.ShaderFilter;
 import funkin.play.components.HealthIcon;
 import funkin.Conductor;
 import flixel.FlxG;
+import flixel.FlxSprite;
 
 class MyAmazingWorld extends Song {
     function new() {
@@ -21,6 +22,8 @@ class MyAmazingWorld extends Song {
     var fileShader:FlxRuntimeShader;
     var songStarted:Bool = false;
     var darwinIcon:HealthIcon;
+    var healthBarGumball:FlxSprite = null;
+    var orderIcon:Int = 0;
 
     function initPlayState() {
         return PlayState.instance;
@@ -37,12 +40,16 @@ class MyAmazingWorld extends Song {
         ModuleHandler.getModule('CNlogo').scriptCall('init');
     }
 
-    override function onSongStart(event) {
-        super.onSongStart(event);
+    override function onCountdownStart(event){
+        super.onCountdownStart(event);
 
         darwinIcon = ModuleHandler.getModule('MakeNewIcon').scriptCall('createNewIcon', ['Darwin', false, game.currentStage.getGirlfriend()]);
         darwinIcon.cameras = [game.camHUD];
         game.add(darwinIcon);
+    }
+
+    override function onSongStart(event) {
+        super.onSongStart(event);
 
         game = initPlayState();
         songStarted = true;
@@ -58,16 +65,23 @@ class MyAmazingWorld extends Song {
         game.camGame.filters.push(glowFilter);
         game.camGame.bgColor = FlxColor.WHITE;
 
+        ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
+        ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
+        healthBarGumball = ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
+
         trace('I really fu*king hate step hit');
     }
 
     var uTimeFloat:Float = 0;
 
-    override function onUpdate(event) {
+    function onUpdate(event) {
         super.onUpdate(event);
-        uTimeFloat += event.elapsed;
 
         game = initPlayState();
+        onUpdateIcon();
+
+        uTimeFloat += event.elapsed;
+
         if (game == null) return;
 
         if (!songStarted) {
@@ -75,18 +89,58 @@ class MyAmazingWorld extends Song {
             game.camHUD.visible = false;
         }
 
+        if (darwinIcon != null) darwinIcon.scale.set(game.iconP1.scale.x, game.iconP1.scale.y);
+
         if (fileShader != null) fileShader.setFloat('iTime', uTimeFloat);
     }
 
-    override function onBeatHit(event) {
+    function onBeatHit(event) {
         super.onBeatHit(event);
-
         game = initPlayState();
+        onUpdateIcon();
     }
 
-    override function onStepHit(event) {
+    function onNoteHit(e)
+    {
+        super.onNoteHit(e);
+
+        if (e.note.noteData.getMustHitNote())
+            if (e.note.noteData.kind == null){
+                darwinIcon.zIndex = game.iconP1.zIndex - 1;
+                orderIcon = 0;
+            }else if (e.note.noteData.kind == 'GF Sing'){
+                darwinIcon.zIndex = game.iconP1.zIndex + 1;
+                orderIcon = 1;
+            }
+    }
+
+    function onUpdateIcon(){
+        if (game == null) return;
+        if (healthBarGumball == null) return;
+
+        if (orderIcon == 0){
+            game.iconP1.x = 550; 
+            darwinIcon.x = 650;
+
+            game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2);
+            darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2) - 25;
+        }else { 
+            darwinIcon.x = 550;
+            game.iconP1.x = 650;
+
+            darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2);
+            game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2) - 30;
+        }
+
+        game.iconP2.x = 30;
+
+    }
+
+    function onStepHit(event) {
         super.onStepHit(event);
         game = initPlayState();
+
+        onUpdateIcon();
 
         switch (event.step) {
             case 128:
@@ -142,7 +196,7 @@ class MyAmazingWorld extends Song {
             case 2080:
                 game.camHUD.flash(FlxColor.WHITE, 1);   
 
-                for (note in game.opponentStrumline.strumlineNotes.members) note.alpha = 0;   
+                
 
                 game.currentStage.getGirlfriend().color = FlxColor.BLACK;
                 game.currentStage.getBoyfriend().color = FlxColor.BLACK;
@@ -153,8 +207,7 @@ class MyAmazingWorld extends Song {
                 game.camGame.filters.push(glowFilter);
                 game.camGame.bgColor = FlxColor.WHITE;
             case 2144:
-                for (note in game.opponentStrumline.strumlineNotes.members) note.alpha = 1;
-
+               
                 game.camGame.flash(FlxColor.WHITE, 1);
 
                 game.currentStage.getDad().color = FlxColor.WHITE;

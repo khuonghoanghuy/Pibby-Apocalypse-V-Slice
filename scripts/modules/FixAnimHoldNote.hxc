@@ -55,19 +55,16 @@ class FixAnimHoldNote extends Module{
         if (isOpponent){
             if (type == null){
                 game.currentStage.getDad().playSingAnimation(direction, false);
-                game.currentStage.getDad().holdTimer = 0;
             }
         }
 
         if (!isOpponent){
             if (type == null){
                 game.currentStage.getBoyfriend().playSingAnimation(direction, false);
-                game.currentStage.getBoyfriend().holdTimer = 0;
             }
 
             if (type == 'GF Sing'){
                 game.currentStage.getGirlfriend().playSingAnimation(direction, false);
-                game.currentStage.getGirlfriend().holdTimer = 0;
             }
         }
         trace(type);
