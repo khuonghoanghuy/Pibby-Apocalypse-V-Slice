@@ -83,6 +83,33 @@ class SchoolGumball extends Stage {
         }
 
         getNamedProp('chn' + num).visible = true;
+
+        // GF:87: (x: 696 | y: 432)
+        // DAD:88: (x: -128.18 | y: 449.24)
+    
+        switch (num)
+        {
+            case 1:
+                game.currentStage.getDad().x = -128.18;
+                game.currentStage.getDad().y = 449.24 - 50;
+
+                game.currentStage.getGirlfriend().x = 696;
+                game.currentStage.getGirlfriend().y = 432 + 50;
+
+            case 3:
+                game.currentStage.getDad().x = -128.18;
+                game.currentStage.getDad().y = 449.24 - 50;
+
+                game.currentStage.getGirlfriend().x = 696;
+                game.currentStage.getGirlfriend().y = 432 + 50;
+                
+            case 2:
+                game.currentStage.getDad().x = -128.18;
+                game.currentStage.getDad().y = 449.24 + 45;
+
+                game.currentStage.getGirlfriend().x = 696;
+                game.currentStage.getGirlfriend().y = 432 + 125;
+        }
     }
 
     function hideBackground(value:Bool) {
@@ -239,6 +266,23 @@ class SchoolGumball extends Stage {
 
                         game.camHUD.flash(FlxColor.WHITE, 1, true);
                         setVoidVisible(1);
+
+                        game.currentStage.getDad().x = -128.18;
+                        game.currentStage.getDad().y = 449.24;
+
+                        game.currentStage.getGirlfriend().x = 696;
+                        game.currentStage.getGirlfriend().y = 432;
+
+                        game.currentStage.getDad().color = 0xff969494;
+                        game.currentStage.getGirlfriend().color = 0xff969494;
+                        game.currentStage.getBoyfriend().color = 0xff969494;
+
+                        getNamedProp('void_house').color = 0xff969494;
+                        getNamedProp('void_stuff1').color = 0xff969494;
+                        getNamedProp('void_stuff2').color = 0xff969494;
+                        getNamedProp('void_stuff3').color = 0xff969494;
+                        getNamedProp('void_stuff4').color = 0xff969494;
+                        getNamedProp('void_floor').color = 0xff969494;
             }
         }
     }

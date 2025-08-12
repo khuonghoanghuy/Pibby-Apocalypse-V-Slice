@@ -472,6 +472,15 @@
 }
     },
     {
+      "t": 97275,
+      "e": "Cinematics",
+      "v": {
+	"ease": "cubeOut",
+	"distance": 60,
+	"speed": 16
+}
+    },
+    {
       "t": 99600,
       "e": "FocusCamera",
       "v": {
@@ -526,6 +535,15 @@
 }
     },
     {
+      "t": 115800,
+      "e": "Cinematics",
+      "v": {
+	"ease": "cubeOut",
+	"distance": 0,
+	"speed": 1
+}
+    },
+    {
       "t": 116400,
       "e": "SetCameraBop",
       "v": {
@@ -539,9 +557,9 @@
       "v": {
 	"text": "GUM",
 	"fadeIn": true,
-	"color": "ff784b",
 	"font": "Gumball.ttf",
-	"speed": 6
+	"speed": 6,
+	"color": "ff784b"
 }
     },
     {
@@ -550,9 +568,9 @@
       "v": {
 	"text": "GUMBALL",
 	"fadeIn": true,
-	"color": "ff784b",
 	"font": "Gumball.ttf",
-	"speed": 6
+	"speed": 6,
+	"color": "ff784b"
 }
     },
     {
@@ -561,9 +579,9 @@
       "v": {
 	"text": "D-D-D-D-D",
 	"fadeIn": true,
-	"font": "Gumball.ttf",
 	"speed": 0,
-	"color": "52a5eb"
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
 }
     },
     {
@@ -572,9 +590,9 @@
       "v": {
 	"text": "D-D",
 	"fadeIn": true,
-	"font": "Gumball.ttf",
 	"speed": 0,
-	"color": "52a5eb"
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
 }
     },
     {
@@ -583,9 +601,9 @@
       "v": {
 	"text": "D-D-D",
 	"fadeIn": true,
-	"speed": 0,
 	"color": "52a5eb",
-	"font": "Gumball.ttf"
+	"font": "Gumball.ttf",
+	"speed": 0
 }
     },
     {
@@ -594,9 +612,9 @@
       "v": {
 	"text": "D-D-D-D",
 	"fadeIn": true,
-	"speed": 0,
 	"color": "52a5eb",
-	"font": "Gumball.ttf"
+	"font": "Gumball.ttf",
+	"speed": 0
 }
     },
     {
@@ -605,9 +623,9 @@
       "v": {
 	"text": "D-D-D-D-D",
 	"fadeIn": true,
-	"speed": 0,
 	"color": "52a5eb",
-	"font": "Gumball.ttf"
+	"font": "Gumball.ttf",
+	"speed": 0
 }
     },
     {
@@ -616,9 +634,9 @@
       "v": {
 	"text": "D-D-D-D-D-D",
 	"fadeIn": true,
-	"speed": 0,
 	"color": "52a5eb",
-	"font": "Gumball.ttf"
+	"font": "Gumball.ttf",
+	"speed": 0
 }
     },
     {
@@ -627,9 +645,9 @@
       "v": {
 	"text": "DARWIN?",
 	"fadeIn": true,
-	"speed": 0,
 	"color": "52a5eb",
-	"font": "Gumball.ttf"
+	"font": "Gumball.ttf",
+	"speed": 0
 }
     },
     {
@@ -638,9 +656,9 @@
       "v": {
 	"text": "DARWIN?",
 	"fadeIn": false,
-	"font": "Gumball.ttf",
 	"speed": 8,
-	"color": "52a5eb"
+	"color": "52a5eb",
+	"font": "Gumball.ttf"
 }
     },
     {
@@ -778,9 +796,9 @@
       "v": {
 	"fadeIn": true,
 	"text": "THE DARKNESS...",
-	"color": "52a5eb",
 	"speed": 0,
-	"font": "Gumball.ttf"
+	"font": "Gumball.ttf",
+	"color": "52a5eb"
 }
     },
     {
@@ -789,9 +807,9 @@
       "v": {
 	"fadeIn": false,
 	"text": "THE DARKNESS...",
-	"speed": 1,
 	"font": "Gumball.ttf",
-	"color": "52a5eb"
+	"color": "52a5eb",
+	"speed": 1
 }
     },
     {
@@ -800,9 +818,9 @@
       "v": {
 	"fadeIn": true,
 	"text": "IT'S",
-	"font": "Gumball.ttf",
 	"color": "52a5eb",
-	"speed": 0
+	"speed": 0,
+	"font": "Gumball.ttf"
 }
     },
     {
@@ -811,9 +829,9 @@
       "v": {
 	"fadeIn": true,
 	"text": "IT'S CALL",
-	"speed": 0,
 	"font": "Gumball.ttf",
-	"color": "52a5eb"
+	"color": "52a5eb",
+	"speed": 0
 }
     },
     {
@@ -822,9 +840,9 @@
       "v": {
 	"fadeIn": true,
 	"text": "IT'S CALLING",
-	"font": "Gumball.ttf",
 	"color": "52a5eb",
-	"speed": 0
+	"speed": 0,
+	"font": "Gumball.ttf"
 }
     },
     {
@@ -833,9 +851,9 @@
       "v": {
 	"fadeIn": true,
 	"text": "IT'S CALLING ME...",
-	"speed": 0,
 	"font": "Gumball.ttf",
-	"color": "52a5eb"
+	"color": "52a5eb",
+	"speed": 0
 }
     },
     {
@@ -844,9 +862,9 @@
       "v": {
 	"fadeIn": false,
 	"text": "IT'S CALLING ME...",
-	"font": "Gumball.ttf",
 	"color": "52a5eb",
-	"speed": 2
+	"speed": 2,
+	"font": "Gumball.ttf"
 }
     },
     {
