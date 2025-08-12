@@ -76,9 +76,6 @@ class MyAmazingWorld extends Song {
         }
 
         if (fileShader != null) fileShader.setFloat('iTime', uTimeFloat);
-
-        
-
     }
 
     override function onBeatHit(event) {
