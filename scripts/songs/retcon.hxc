@@ -1,0 +1,24 @@
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+
+class Retcon extends Song
+{
+    function new()
+    {
+        super("retcon");
+    }
+
+    var game = null;
+
+    override function onCreate(event)
+    {
+        super.onCreate(event);
+
+        game = PlayState.instance;
+        if (game == null) return;
+
+        game.currentStage.getDad().color = 0xff969494;
+        game.currentStage.getGirlfriend().color = 0xff969494;
+        game.currentStage.getBoyfriend().color = 0xff969494;
+    }
+}

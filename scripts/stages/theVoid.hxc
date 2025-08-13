@@ -1,0 +1,35 @@
+import funkin.play.stage.Stage;
+import funkin.play.PlayState;
+import funkin.Conductor;
+import Math;
+
+class TheVoid extends Stage
+{
+    function new()
+    {
+        super("theVoid");
+    }
+
+    var speed:Float = 1.5;
+
+    override function buildStage(event) {
+        super.buildStage(event);
+    
+        getNamedProp('void_house').color = 0xff969494;
+        getNamedProp('void_stuff1').color = 0xff969494;
+        getNamedProp('void_stuff2').color = 0xff969494;
+        getNamedProp('void_stuff3').color = 0xff969494;
+        getNamedProp('void_stuff4').color = 0xff969494;
+        getNamedProp('void_floor').color = 0xff969494;
+    }
+
+    override function onUpdate(event) {
+        super.onUpdate(event);
+
+        getNamedProp('void_house').angle = 4 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+        getNamedProp('void_stuff1').angle = 2 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        getNamedProp('void_stuff2').angle = 360 * Math.sin(Conductor.instance.songPosition / (30000/speed));
+        getNamedProp('void_stuff3').angle = 6 * Math.sin(Conductor.instance.songPosition / (5000/speed));
+        getNamedProp('void_stuff4').angle = 3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+    }
+}

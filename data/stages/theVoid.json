@@ -1,0 +1,297 @@
+{
+  "version": "1.0.2",
+  "name": "The Void",
+  "props": [
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [
+        {
+          "assetPath": null,
+          "flipX": false,
+          "flipY": false,
+          "frameIndices": [          ],
+          "frameRate": 24,
+          "looped": true,
+          "name": "idle",
+          "offsets": [
+            0,
+            0
+          ],
+          "prefix": "idle"
+        }
+      ],
+      "assetPath": "stages/void/void",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_background",
+      "position": [
+        -940,
+        -404
+      ],
+      "scale": 1.7,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "idle",
+      "zIndex": 0
+    },
+    {
+      "alpha": 0,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [
+        {
+          "assetPath": null,
+          "flipX": false,
+          "flipY": false,
+          "frameIndices": [          ],
+          "frameRate": 24,
+          "looped": true,
+          "name": "idle",
+          "offsets": [
+            0,
+            0
+          ],
+          "prefix": "spin"
+        }
+      ],
+      "assetPath": "stages/void/gumballglitchbg",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "gumballglitchbg",
+      "position": [
+        -942,
+        -412
+      ],
+      "scale": [
+	5,
+	4.85
+],
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "idle",
+      "zIndex": 0
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-2",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_house",
+      "position": [
+        -402,
+        -394
+      ],
+      "scale": 1.85,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 1
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-3",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_floor",
+      "position": [
+        -809,
+        -626
+      ],
+      "scale": 2.5,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 1
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-4",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff1",
+      "position": [
+        536,
+        -90
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 2
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-6",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff3",
+      "position": [
+        -762,
+        -14
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 3
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-5",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff2",
+      "position": [
+        624,
+        688
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 3
+    },
+    {
+      "alpha": 1,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [      ],
+      "assetPath": "stages/void/Ilustracion_sin_titulo-7",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "void_stuff4",
+      "position": [
+        -568,
+        -278
+      ],
+      "scale": 2,
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "",
+      "zIndex": 4
+    }
+  ],
+  "characters": {
+    "bf": {
+      "alpha": 1,
+      "angle": 0,
+      "cameraOffsets": [
+        -102,
+        -110
+      ],
+      "position": [
+        1094.625,
+        872
+      ],
+      "scale": 1.25,
+      "scroll": [
+        1,
+        1
+      ],
+      "zIndex": 300
+    },
+    "dad": {
+      "alpha": 1,
+      "angle": 0,
+      "cameraOffsets": [
+        192,
+        -38
+      ],
+      "position": [
+        105.78,
+        861.96
+      ],
+      "scale": 1.2,
+      "scroll": [
+        1,
+        1
+      ],
+      "zIndex": 200
+    },
+    "gf": {
+      "alpha": 1,
+      "angle": 0,
+      "cameraOffsets": [
+        0,
+        0
+      ],
+      "position": [
+        933.5,
+        792.5
+      ],
+      "scale": 1,
+      "scroll": [
+        1,
+        1
+      ],
+      "zIndex": 300
+    }
+  },
+  "cameraZoom": 0.85,
+  "directory": "shared"
+}

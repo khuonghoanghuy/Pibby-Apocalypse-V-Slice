@@ -3,7 +3,7 @@
   "name": "Gumball",
   "titleAsset": "storymenu/titles/myweek",
   "background": "#F9CF51",
-  "songs": ["childs-play", "my-amazing-world"],
+  "songs": ["childs-play", "my-amazing-world", "retcon"],
   "visible": false,
   "props": [
     {

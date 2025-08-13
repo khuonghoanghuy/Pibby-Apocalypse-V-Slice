@@ -111,7 +111,7 @@ class CameraShader extends Module
         game = initPlayState();
         if (game == null) return;
 
-        game.isBotPlayMode = true;
+        // game.isBotPlayMode = true;
         uTimeFloat += event.elapsed;
         glitchShaderIntensity = FlxMath.lerp(glitchShaderIntensity, 0, FlxMath.bound(event.elapsed * lerpGlitchChromatic, 0, 1));
         chromaticShaderIntensity = FlxMath.lerp(chromaticShaderIntensity, 0, FlxMath.bound(event.elapsed * 6, 0, 1));
