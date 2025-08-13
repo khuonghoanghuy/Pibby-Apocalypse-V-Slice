@@ -14,6 +14,7 @@ class ChildsPlay extends Song {
     var game:PlayState;
     var glowShader:FlxRuntimeShader;
     var songStarted:Bool = false;
+    var orderIcon:Int = 0;
 
     function initPlayState() {
         return PlayState.instance;
@@ -26,7 +27,7 @@ class ChildsPlay extends Song {
         if (game == null) return;
         game.currentStage.getDad().animation.play('still', true);
 
-        ModuleHandler.getModule('CNlogo').scriptCall('createLogo');
+        ModuleHandler.getModule('CNlogo').scriptCall('init');
     }
 
     override function onSongStart(event) {
@@ -40,17 +41,46 @@ class ChildsPlay extends Song {
         songStarted = true;
         game.camGame.visible = true;
         game.camHUD.visible = true;
+
+        ModuleHandler.getModule('glitchStrumsModule').scriptCall('unglitchifyStrums');
+        ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
+        ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
+        healthBarGumball = ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
+    }
+
+    function onUpdateIcon(){
+        if (game == null) return;
+        if (healthBarGumball == null) return;
+
+        if (orderIcon == 0){
+            game.iconP1.x = 550; 
+            //darwinIcon.x = 650;
+
+            game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2);
+            //darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2) - 25;
+        }else { 
+            //darwinIcon.x = 550;
+            game.iconP1.x = 650;
+
+           // darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2);
+            game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2) - 30;
+        }
+
+        game.iconP2.x = 30;
+
     }
 
     override function onUpdate(event) {
         super.onUpdate(event);
+        game = initPlayState();
+
+        if (game == null) return;
+        onUpdateIcon();
 
         if (!songStarted) {
             game.camGame.visible = false;
             game.camHUD.visible = false;
         }
-
-        game = initPlayState();
         //if (game != null) game.isBotPlayMode = true;
     }
 
@@ -58,6 +88,7 @@ class ChildsPlay extends Song {
         super.onBeatHit(event);
 
         game = initPlayState();
+        onUpdateIcon();
 
         switch (event.beat) {
             case 96:
@@ -82,10 +113,11 @@ class ChildsPlay extends Song {
         super.onStepHit(event);
 
         game = initPlayState();
+        onUpdateIcon();
 
         switch (event.step) {
             case 256:
-                ModuleHandler.getModule('NoteGlitchModule').scriptCall('glitchStrums');
+                ModuleHandler.getModule('glitchStrumsModule').scriptCall('glitchifyStrums');
             case 416:
                 ModuleHandler.getModule('CameraShader').scriptCall('resetShaderGlitch');
             case 672:

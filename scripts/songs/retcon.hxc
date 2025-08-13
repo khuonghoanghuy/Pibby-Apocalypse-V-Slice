@@ -1,5 +1,6 @@
 import funkin.play.PlayState;
 import funkin.play.song.Song;
+import funkin.modding.module.ModuleHandler;
 
 class Retcon extends Song
 {
@@ -8,7 +9,11 @@ class Retcon extends Song
         super("retcon");
     }
 
-    var game = null;
+    var game:PlayState;
+    var songStarted:Bool = false;
+    var darwinIcon:HealthIcon;
+    var healthBarGumball:FlxSprite = null;
+    var orderIcon:Int = 0;
 
     override function onCreate(event)
     {
@@ -20,5 +25,82 @@ class Retcon extends Song
         game.currentStage.getDad().color = 0xff969494;
         game.currentStage.getGirlfriend().color = 0xff969494;
         game.currentStage.getBoyfriend().color = 0xff969494;
+    }
+
+    override function onSongStart(event) {
+        super.onSongStart(event);
+
+        darwinIcon = ModuleHandler.getModule('MakeNewIcon').scriptCall('createNewIcon', ['Darwin', false, game.currentStage.getGirlfriend()]);
+        darwinIcon.cameras = [game.camHUD];
+        darwinIcon.alpha = 1;
+        game.add(darwinIcon);
+
+        ModuleHandler.getModule('IconGlitch').scriptCall('addIcon', [darwinIcon, false]);
+
+        ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
+        ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
+        healthBarGumball = ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
+    }
+
+    function onUpdate(event){
+        super.onUpdate(event);
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        onUpdateIcon();
+    }
+
+    function onBeatHit(event) {
+        super.onBeatHit(event);
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        onUpdateIcon();
+    }
+
+    function onNoteHit(e)
+    {
+        super.onNoteHit(e);
+
+        if (e.note.noteData.getMustHitNote())
+            if (e.note.noteData.kind == null){
+                darwinIcon.zIndex = game.iconP1.zIndex - 1;
+                orderIcon = 0;
+            }else if (e.note.noteData.kind == 'GF Sing'){
+                darwinIcon.zIndex = game.iconP1.zIndex + 1;
+                orderIcon = 1;
+            }
+    }
+
+    function onUpdateIcon(){
+        if (game == null) return;
+
+        if (healthBarGumball == null) return;
+
+        if (orderIcon == 0){
+            game.iconP1.x = 550; 
+            darwinIcon.x = 650;
+
+            game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2);
+            darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2) - 25;
+        }else { 
+            darwinIcon.x = 550;
+            game.iconP1.x = 650;
+
+            darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2);
+            game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2) - 30;
+        }
+
+        game.iconP2.x = 30;
+    }
+
+    function onStepHit(event) {
+        super.onStepHit(event);
+        game = PlayState.instance;
+        if (game == null) return;
+
+        onUpdateIcon();
     }
 }

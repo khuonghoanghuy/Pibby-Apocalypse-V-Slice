@@ -45,6 +45,7 @@ class MyAmazingWorld extends Song {
 
         darwinIcon = ModuleHandler.getModule('MakeNewIcon').scriptCall('createNewIcon', ['Darwin', false, game.currentStage.getGirlfriend()]);
         darwinIcon.cameras = [game.camHUD];
+        darwinIcon.alpha = 0.00001;
         game.add(darwinIcon);
     }
 
@@ -173,6 +174,8 @@ class MyAmazingWorld extends Song {
                 game.camGame.visible = false;
             case 1568:
                 game.camGame.visible = true;
+
+                darwinIcon.alpha = 1;
                 game.currentStage.getGirlfriend().alpha = 1;
                 game.currentStage.getBoyfriend().alpha = 0.3;
                 game.currentStage.getDad().alpha = 1; // make sure lmao

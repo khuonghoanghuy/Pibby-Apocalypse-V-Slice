@@ -135,6 +135,7 @@ class SchoolGumball extends Stage {
         switch (game.currentChart.songName) {
             case "Child's Play":
                 PlayState.instance.currentStage.getGirlfriend().visible = false;
+                setVoidVisible(0.00001);
             case "My Amazing World":
                 setDropsVisible(false);
                 hideBackground(false);

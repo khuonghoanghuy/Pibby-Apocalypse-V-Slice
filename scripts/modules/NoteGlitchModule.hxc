@@ -17,7 +17,6 @@ class GlitchyStrumsModule extends Module
     used to glitch the strum notes
     */
 
-    var glitchStrumsShads:Array<FlxRuntimeShader>;
     var glitchNote:FlxRuntimeShader;
     var initializedStrums:Bool = false;
 
@@ -85,7 +84,7 @@ class GlitchyStrumsModule extends Module
 
         //if (!event.note.noteData.getMustHitNote() && event.note.noteData.kind != 'pibbyInvisibleSing') glitchNote.setFloat('binaryIntensity', FlxG.random.float(4, 6));
 
-        if (event.note.noteData.kind == 'glitchChar') glitchStrums();
+        if (event.note.noteData.kind == 'Glitch Note') glitchStrums();
     }
 
     function onStepHit(e:Dynamic)

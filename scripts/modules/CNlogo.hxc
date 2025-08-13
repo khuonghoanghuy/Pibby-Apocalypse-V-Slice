@@ -4,10 +4,12 @@ import funkin.graphics.FunkinSprite;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import Std;
+import Date;
 
 class CNlogo extends Module 
 {
     var game:PlayState;
+    var time:Date;
 
     public function new() {
         super('CNlogo');
