@@ -1,6 +1,13 @@
 import funkin.play.PlayState;
 import funkin.play.song.Song;
 import funkin.modding.module.ModuleHandler;
+import flixel.util.FlxColor;
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 
 class Retcon extends Song
 {
@@ -10,6 +17,7 @@ class Retcon extends Song
     }
 
     var game:PlayState;
+    var glowShader:FlxRuntimeShader;
     var songStarted:Bool = false;
     var darwinIcon:HealthIcon;
     var healthBarGumball:FlxSprite = null;
@@ -21,14 +29,24 @@ class Retcon extends Song
 
         game = PlayState.instance;
         if (game == null) return;
+    }
 
-        game.currentStage.getDad().color = 0xff969494;
-        game.currentStage.getGirlfriend().color = 0xff969494;
-        game.currentStage.getBoyfriend().color = 0xff969494;
+    function onCountdownStart(event){
+        super.onCountdownStart(event);
+
+        game = PlayState.instance;
+        if (game == null) return;
+
+        game.camGame.alpha = 0.00001;
+        game.camHUD.alpha = 0.00001;
+
+        game.camHUD.angle = -20;
+        game.camHUD.y -= 300;
     }
 
     override function onSongStart(event) {
         super.onSongStart(event);
+        game = PlayState.instance;
 
         darwinIcon = ModuleHandler.getModule('MakeNewIcon').scriptCall('createNewIcon', ['Darwin', false, game.currentStage.getGirlfriend()]);
         darwinIcon.cameras = [game.camHUD];
@@ -40,6 +58,9 @@ class Retcon extends Song
         ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
         ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');
         healthBarGumball = ModuleHandler.getModule('healthBarGumball').scriptCall('getHealthBar');
+
+        game.camGame.alpha = 1;
+        game.camGame.fade(FlxColor.BLACK, 17.525, true);
     }
 
     function onUpdate(event){
@@ -85,15 +106,25 @@ class Retcon extends Song
 
             game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2);
             darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2) - 25;
+
+            ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
         }else { 
             darwinIcon.x = 550;
             game.iconP1.x = 650;
 
             darwinIcon.y = game.healthBar.y - (game.iconP1.height / 2);
             game.iconP1.y = game.healthBar.y - (game.iconP1.height / 2) - 30;
+
+            ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [255, 120, 75]);
         }
 
         game.iconP2.x = 30;
+    }
+
+    function onDestroy(){
+        if (game == null) return;
+
+        if (healthBarGumball != null) healthBarGumball.kill();
     }
 
     function onStepHit(event) {
@@ -102,5 +133,68 @@ class Retcon extends Song
         if (game == null) return;
 
         onUpdateIcon();
+
+        switch (event.step){
+            case 246:
+                game.camGame.fade(FlxColor.BLACK, 0.7, false);
+                FlxTween.tween(game.camHUD, {angle: 0, y: game.camHUD.y + 300, alpha: 1}, 2, {ease: FlxEase.expoOut});
+            case 256:
+                game.camGame.fade(FlxColor.BLACK, 0.1, true);
+                game.camGame.flash(FlxColor.WHITE, 1, true);
+            case 384:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 512:							
+                game.camHUD.flash(FlxColor.WHITE, 1);
+            case 758:
+                game.camHUD.fade(FlxColor.WHITE, 0.7, false);
+            case 768:
+                game.camHUD.fade(FlxColor.WHITE, 0.1, true);
+                game.camHUD.flash(FlxColor.WHITE, 1, true);
+            case 1024:							
+                game.camHUD.flash(FlxColor.WHITE, 1);
+            case 1152:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 1280:
+                game.camHUD.flash(FlxColor.WHITE, 1);
+            case 1408:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 1520:
+                game.camGame.fade(FlxColor.BLACK, 0.8, false);
+            case 1536:
+                game.camGame.fade(FlxColor.BLACK, 0.1, true);
+                game.camGame.flash(FlxColor.WHITE, 1, true);
+            case 1824:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 1920:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 1824:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 2048:
+                game.camGame.flash(FlxColor.WHITE, 1);
+            case 2064:
+                game.camHUD.flash(FlxColor.WHITE, 0.75);
+
+                game.currentStage.getGirlfriend().color = FlxColor.BLACK;
+                game.currentStage.getBoyfriend().color = FlxColor.BLACK;
+                game.currentStage.getDad().color = FlxColor.BLACK;
+
+                game.camGame.flash(FlxColor.WHITE, 1);
+                glowFilter = new ShaderFilter(createGlowShader());
+                game.camGame.filters.push(glowFilter);
+                game.camGame.bgColor = FlxColor.WHITE;
+
+                game.camHUD.shake(FlxG.random.float(0.025, 0.1), FlxG.random.float(0.075, 0.125));
+
+                ModuleHandler.getModule('CameraShader').scriptCall('setGlitchIntensity', [2]);
+            case 2324:
+                game.camGame.alpha = 0.00001;
+                FlxTween.tween(game.camHUD, {alpha:0}, 3, {ease:FlxEase.linear});
+        }
+    }
+
+    function createGlowShader() {
+        glowShader = new FlxRuntimeShader(Assets.getText(Paths.frag('glowy')));
+        glowShader.setFloat('intensity', 0.5);
+        return glowShader;
     }
 }

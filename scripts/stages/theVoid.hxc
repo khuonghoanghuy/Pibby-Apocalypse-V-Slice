@@ -2,6 +2,13 @@ import funkin.play.stage.Stage;
 import funkin.play.PlayState;
 import funkin.Conductor;
 import Math;
+import flixel.math.FlxMath;
+import funkin.modding.base.ScriptedFlxRuntimeShader;
+import flixel.addons.display.FlxRuntimeShader;
+import flixel.FlxG;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
 
 class TheVoid extends Stage
 {
@@ -11,25 +18,205 @@ class TheVoid extends Stage
     }
 
     var speed:Float = 1.5;
+    var game:PlayState;
+
+    var cyclesdShader:FlxRuntimeShader;
+
+    var charColors = [0xff969494, 0xFFBFE5BA]; // default, glitch part
+    var houseColors = [0xFF8f8f8f, 0xFF9ADA91]; // also with rock3 and rock4
+    var rockColors = [0xFFbababa, 0xFFB8D4B5]; // only for the rock the characters are on
+    var coolThingColors = [0xFFc4c0c0, 0xFFC1CEAA]; // wtf - forgor, 2023
+
+    var rockDropArray:Array<FlxSprite> = [];
+    var quantityRock:Int = 3;
+
 
     override function buildStage(event) {
         super.buildStage(event);
-    
-        getNamedProp('void_house').color = 0xff969494;
-        getNamedProp('void_stuff1').color = 0xff969494;
-        getNamedProp('void_stuff2').color = 0xff969494;
-        getNamedProp('void_stuff3').color = 0xff969494;
-        getNamedProp('void_stuff4').color = 0xff969494;
-        getNamedProp('void_floor').color = 0xff969494;
+        game = PlayState.instance; 
+
+        var objectGlitch = ['void_rock2', 'void_house', 'void_rock3', 'void_rock4', 'void_wtf'];
+
+        for (i in 0...quantityRock){
+            var rockDrop = new FlxSprite();
+            rockDrop.loadGraphic('stages/void/Ilustracion_sin_titulo-' + FlxG.random.int(5, 6));
+            rockDrop.setPosition(-350,-125);
+            rockDrop.cameras = [game.camGame];
+            //game.insert(game.members.indexOf(getNamedProp(objectGlitch[FlxG.random.int(0,objectGlitch.length -1)])) + 1, rockDrop);
+            game.add(rockDrop);
+        }
+        
+    }
+
+    override function onCountdownStart(event) {
+        super.onCountdownStart(event);
+
+        glitchBG(false);
+
+        cyclesdShader = new FlxRuntimeShader(Assets.getText(Paths.frag('Cyclesd')));
+        cyclesdShader.setFloat('amount', 0);
+        cyclesdShader.setFloat('pixel', 0);
+    }
+
+    function glitchBG(glitch, ?velocity, ?tween){
+        game = PlayState.instance;
+        if (game == null) return;
+
+        if (glitch){
+            if (tween == null){
+                game.currentStage.getDad().color = charColors[1];
+                game.currentStage.getGirlfriend().color = charColors[1];
+                game.currentStage.getBoyfriend().color = charColors[1];
+            
+                getNamedProp('void_house').color = houseColors[1];
+                getNamedProp('void_rock').color = rockColors[1];
+                getNamedProp('void_rock2').color = houseColors[1];
+                getNamedProp('void_rock3').color = houseColors[1];
+                getNamedProp('void_rock4').color = houseColors[1];
+                getNamedProp('void_wtf').color = coolThingColors[1];
+
+                getNamedProp('glitch').alpha = 1;
+                getNamedProp('glitch2').alpha = 0.15;
+            }else{
+                FlxTween.tween(getNamedProp('glitch'), {alpha: 1}, 1, {
+                    ease: FlxEase.quadInOut
+                });
+
+                FlxTween.tween(getNamedProp('glitch2'), {alpha: 0.15}, 1, {
+                    ease: FlxEase.quadInOut
+                });
+
+                FlxTween.color(game.currentStage.getBoyfriend(), 1, charColors[0], charColors[1], {ease: FlxEase.quadInOut } );
+                FlxTween.color(game.currentStage.getDad(), 1, charColors[0], charColors[1], {ease: FlxEase.quadInOut } );
+                FlxTween.color(game.currentStage.getGirlfriend(), 1, charColors[0], charColors[1], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_house'), 1, houseColors[0], houseColors[1], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_rock'), 1, rockColors[0], rockColors[1], {ease: FlxEase.quadInOut } );
+
+                FlxTween.color(getNamedProp('void_rock3'), 1, houseColors[0], houseColors[1], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_rock4'), 1, houseColors[0], houseColors[1], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_wtf'), 1, coolThingColors[0], coolThingColors[1], {ease: FlxEase.quadInOut } );
+            }
+        }else{
+            if (tween == null){
+                game.currentStage.getDad().color = charColors[0];
+                game.currentStage.getGirlfriend().color = charColors[0];
+                game.currentStage.getBoyfriend().color = charColors[0];
+            
+                getNamedProp('void_house').color = houseColors[0];
+                getNamedProp('void_rock').color = rockColors[0];
+                getNamedProp('void_rock2').color = houseColors[0];
+                getNamedProp('void_rock3').color = houseColors[0];
+                getNamedProp('void_rock4').color = houseColors[0];
+                getNamedProp('void_wtf').color = coolThingColors[0];
+
+                getNamedProp('glitch').alpha = 0;
+                getNamedProp('glitch2').alpha = 0;
+            }else{
+                FlxTween.tween(getNamedProp('glitch'), {alpha: 0.0001}, 1, {
+                    ease: FlxEase.quadInOut
+                });
+
+                FlxTween.tween(getNamedProp('glitch2'), {alpha: 0.0001}, 1, {
+                    ease: FlxEase.quadInOut
+                });
+
+                FlxTween.color(game.currentStage.getBoyfriend(), 1, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+                FlxTween.color(game.currentStage.getDad(), 1, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+                FlxTween.color(game.currentStage.getGirlfriend(), 1, charColors[1], charColors[0], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_house'), 1, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_rock'), 1, rockColors[1], rockColors[0], {ease: FlxEase.quadInOut } );
+
+                FlxTween.color(getNamedProp('void_rock3'), 1, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_rock4'), 1, houseColors[1], houseColors[0], {ease: FlxEase.quadInOut } );
+                FlxTween.color(getNamedProp('void_wtf'), 1, coolThingColors[1], coolThingColors[0], {ease: FlxEase.quadInOut } );
+            }
+        }
+
+        if (velocity != null) speed = velocity;
     }
 
     override function onUpdate(event) {
         super.onUpdate(event);
+        game = PlayState.instance;
 
-        getNamedProp('void_house').angle = 4 * Math.sin(Conductor.instance.songPosition / (3000/speed));
-        getNamedProp('void_stuff1').angle = 2 * Math.sin(Conductor.instance.songPosition / (2500/speed));
-        getNamedProp('void_stuff2').angle = 360 * Math.sin(Conductor.instance.songPosition / (30000/speed));
-        getNamedProp('void_stuff3').angle = 6 * Math.sin(Conductor.instance.songPosition / (5000/speed));
-        getNamedProp('void_stuff4').angle = 3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+        var scaleVoid = 1.8 * (0.8 / game.currentCameraZoom);
+        getNamedProp('void_background').scale.x = scaleVoid;
+        getNamedProp('void_background').scale.y = scaleVoid;
+        //getNamedProp('void_background').offset.x = (getNamedProp('void_background').width / 2) / (0.8 / game.currentCameraZoom);
+        //getNamedProp('void_background').offset.y = (getNamedProp('void_background').height / 2) / (0.8 / game.currentCameraZoom);
+
+        if (getNamedProp('void_house') != null){
+            getNamedProp('void_house').angle = 4 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+            getNamedProp('void_house').offset.y = -320 - 40 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        }
+
+        if (getNamedProp('void_rock2') != null){
+            getNamedProp('void_rock2').angle = 2 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+            getNamedProp('void_rock2').offset.y = -320 - 20 * Math.sin(Conductor.instance.songPosition / (2000/speed));
+        }
+
+        if (getNamedProp('void_rock3') != null){
+            getNamedProp('void_rock3').angle = 360 * Math.sin(Conductor.instance.songPosition / (30000/speed));
+            //getNamedProp('void_house').offset.y = 50 * Math.sin(Conductor.instance.songPosition / (3500/speed));
+        }
+
+        if (getNamedProp('void_rock4') != null){
+            getNamedProp('void_rock4').angle = 18 * Math.sin(Conductor.instance.songPosition / (5000/speed));
+            getNamedProp('void_rock4').offset.y = -310 - 10 * Math.sin(Conductor.instance.songPosition / (4000/speed));
+        }
+
+        if (getNamedProp('void_wtf') != null){
+            getNamedProp('void_wtf').angle = -3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
+            getNamedProp('void_wtf').offset.y = -325 - 25 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        }
+
+        //game.currentCameraZoom = 0.2;
+    }
+
+    function onBeatHit(event){
+        if (game == null) return;
+        var curBeat = event.beat;
+        var objectGlitch = ['void_rock2', 'void_house', 'void_rock3', 'void_rock4', 'void_wtf'];
+
+        if (curBeat % 8 == 0){
+            for (i in 0...FlxG.random.int(0,2)){
+                var randomGlitch = FlxG.random.int(0,objectGlitch.length - 1);
+                getNamedProp(objectGlitch[randomGlitch]).shader = cyclesdShader;
+                FlxTween.num(FlxG.random.int(30, 50), 0, 0.25, {ease:FlxEase.linear, onUpdate: (pix) -> {
+                    cyclesdShader.setFloat('pixel', pix.value);},
+                    onComplete: function(){
+                        getNamedProp(objectGlitch[randomGlitch]).shader = null;
+                    }});
+            }
+        }
+    }
+
+    function onStepHit(event){
+        switch(event.step){
+            case 512:
+                glitchBG(true, 2); 
+            case 768:
+                glitchBG(false, 1); 
+            case 1024:
+                glitchBG(true, 2);
+            case 1280:
+                glitchBG(false, 5);
+            case 1536:
+                glitchBG(true, 10);
+            case 1792:
+                glitchBG(false, 1, true);
+            case 1824:
+                glitchBG(true, 10);  
+            case 2064:
+                getNamedProp('glitch').alpha = 0.0001;
+                getNamedProp('glitch2').alpha = 0.0001;
+                getNamedProp('void_background').alpha = 0.0001;
+                getNamedProp('void_house').alpha = 0.0001;
+                getNamedProp('void_rock').alpha = 0.0001;
+                getNamedProp('void_rock2').alpha = 0.0001;
+                getNamedProp('void_rock3').alpha = 0.0001;
+                getNamedProp('void_rock4').alpha = 0.0001;
+                getNamedProp('void_wtf').alpha = 0.0001;
+        }
     }
 }

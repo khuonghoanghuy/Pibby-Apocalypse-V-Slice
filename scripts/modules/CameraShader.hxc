@@ -9,7 +9,7 @@ import flixel.math.FlxMath;
 
 class CameraShader extends Module
 {
-    var chromAmount:Float = -0.35;
+    var chromAmount:Float = -0.5;
 
     var beatChromaticAberration:Int = 4;
     
@@ -51,14 +51,14 @@ class CameraShader extends Module
         super.onSongEvent(e);
 
         if (e.eventData.eventKind == 'AddZoomEvent') chromaticShaderIntensity = chromAmount;
-        trace(e);
+        //trace(e);
 
     }
 
     override function onSongStart(event) {
         super.onSongStart(event);
         resetShaderGlitch();
-        // game.isBotPlayMode = true;
+        game.isBotPlayMode = true;
     }
 
     function resetShaderGlitch(){
@@ -80,12 +80,16 @@ class CameraShader extends Module
 
     override function onNoteHit(event:Dynamic)
     {
-
-
         if (game == null) return;
         super.onNoteHit(event);
 
-        if (!event.note.noteData.getMustHitNote() && FlxG.random.bool(50) && event.note.noteData.kind != 'pibbyInvisibleSing') glitchShaderIntensity = FlxG.random.float(0.2, 0.8);
+        if (!event.note.noteData.getMustHitNote() && FlxG.random.bool(50) && event.note.noteData.kind != 'GF Sing') setGlitchIntensity(FlxG.random.float(0.2, 0.8));
+    }
+
+    function setGlitchIntensity(?amount){
+        if (amount == null) return;
+
+        glitchShaderIntensity = amount;
     }
 
     /*public override function setupHoldNoteGraphic(noteStyle)

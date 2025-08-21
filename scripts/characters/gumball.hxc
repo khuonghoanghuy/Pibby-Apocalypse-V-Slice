@@ -1,0 +1,53 @@
+import funkin.play.character.MultiSparrowCharacter;
+import funkin.play.character.SparrowCharacter;
+import funkin.play.character.CharacterType;
+import funkin.play.notes.notekind.NoteKind;
+import funkin.play.GameOverSubState;
+import funkin.play.PlayState;
+
+import funkin.save.Save;
+
+import funkin.ui.debug.anim.DebugBoundingState;
+
+import flixel.FlxG;
+
+import StringTools;
+import Std;
+
+class Gumball_PA extends SparrowCharacter
+{
+  function new()
+  {
+    super('gumball');
+  }
+
+  function onNoteHit(event:HitNoteScriptEvent)
+  {
+    if (!event.note.noteData.getMustHitNote())
+    {
+      //Thank you Borja:3
+      switch (event.note.noteData.kind)
+      {
+        case "GF Sing":
+          return;
+      }
+    }
+
+    super.onNoteHit(event);
+  }
+
+  function onNoteMiss(event:HitNoteScriptEvent)
+  {
+    if (!event.note.noteData.getMustHitNote())
+    {
+      //:3
+      switch (event.note.noteData.kind)
+      {
+        case "GF Sing":
+          return;
+      }
+    }
+
+    super.onNoteMiss(event);
+  }
+}

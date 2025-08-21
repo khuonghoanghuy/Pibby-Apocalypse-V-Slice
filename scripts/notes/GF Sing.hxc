@@ -45,6 +45,8 @@ class GF_Sing extends NoteKind
         if (PlayState.instance == null) return;
         if (e.note.noteData.kind != "GF Sing") return;
 
+        if (!e.note.noteData.getMustHitNote()) e.cancel();
+
         game.currentStage.getGirlfriend().holdTimer = 0;
         
         game.currentStage.getGirlfriend().playSingAnimation(e.note.noteData.getDirection(), false);
@@ -61,5 +63,17 @@ class GF_Sing extends NoteKind
         game.currentStage.getGirlfriend().holdTimer = 0;
 
         game.currentStage.getGirlfriend().playSingAnimation(e.note.noteData.getDirection(), true);
+    }
+
+    function onNoteIncoming(e)
+    {
+        game = PlayState.instance;
+        super.onNoteIncoming(e);
+
+        if (e.note.noteData.getMustHitNote()) return;
+
+        for (i in this.getNotes()) if (i != null) i.visible = false;
+
+        for (i in game.opponentStrumline.holdNotes.members) if (i?.noteData?.kind != null) if (i?.noteData?.kind == 'GF Sing') i.alpha = 0;
     }
 }

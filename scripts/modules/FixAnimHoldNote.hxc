@@ -1,14 +1,21 @@
 import funkin.play.PlayState;
 import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
 
 class FixAnimHoldNote extends Module{
     var game:PlayState;
     //var 
+    var songStarted:Bool = false;
 
-    override function onUpdate(event){
+    function onSongStart(event){
+        songStarted = true;
+    }
+
+    override function onStepHit(event){
         game = PlayState.instance;
         if (game == null) return;
-        super.onUpdate(event);
+        if (songStarted == false) return;
+        super.onStepHit(event);
 
         for (holdNote in game.opponentStrumline.holdNotes.members)
         {
@@ -21,7 +28,13 @@ class FixAnimHoldNote extends Module{
                 if (game.currentStage != null && game.currentStage.getDad() != null && game.currentStage.getDad().isSinging())
                 {
                     game.currentStage.getDad().holdTimer = 0;
-                    onSustainNote(true, holdNote.noteData.kind, holdNote.noteData.getDirection());
+                    onSustainNote(true, holdNote.noteData.kind, holdNote.noteData);
+                }
+
+                if (game.currentStage != null && game.currentStage.getGirlfriend() != null)
+                {
+                    game.currentStage.getGirlfriend().holdTimer = 0;
+                    onSustainNote(true, holdNote.noteData.kind, holdNote.noteData);
                 }
             }
         }
@@ -37,7 +50,13 @@ class FixAnimHoldNote extends Module{
                 if (game.currentStage != null && game.currentStage.getBoyfriend() != null && game.currentStage.getBoyfriend().isSinging())
                 {
                     game.currentStage.getDad().holdTimer = 0;
-                    onSustainNote(false, holdNote.noteData.kind, holdNote.noteData.getDirection());
+                    onSustainNote(false, holdNote.noteData.kind, holdNote.noteData);
+                }
+
+                if (game.currentStage != null && game.currentStage.getGirlfriend() != null)
+                {
+                    game.currentStage.getGirlfriend().holdTimer = 0;
+                    onSustainNote(false, holdNote.noteData.kind, holdNote.noteData);
                 }
             }
         }
@@ -51,10 +70,16 @@ class FixAnimHoldNote extends Module{
         if (game == null) return;
     }
 
-    function onSustainNote(isOpponent, type, direction){
+    function onSustainNote(isOpponent, type, holdNoteData){
+        var direction = holdNoteData.getDirection();
+        
         if (isOpponent){
-            if (type == null){
+            if (type == null || type == 'Glitch Note'){
                 game.currentStage.getDad().playSingAnimation(direction, false);
+            }
+
+            if (type == 'GF Sing'){
+                game.currentStage.getGirlfriend().playSingAnimation(direction, false);
             }
         }
 
@@ -67,7 +92,7 @@ class FixAnimHoldNote extends Module{
                 game.currentStage.getGirlfriend().playSingAnimation(direction, false);
             }
         }
-        trace(type);
-    }
 
+        ModuleHandler.getModule('GlitchCharacters').scriptCall('onSustainNote', [isOpponent, type, holdNoteData]);
+    }
 }

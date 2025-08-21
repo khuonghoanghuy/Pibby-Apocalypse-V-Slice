@@ -31,8 +31,8 @@
       "isPixel": false,
       "name": "void_background",
       "position": [
-        -940,
-        -404
+        -1140,
+        -304
       ],
       "scale": 1.7,
       "scroll": [
@@ -69,7 +69,7 @@
       "flipX": false,
       "flipY": false,
       "isPixel": false,
-      "name": "gumballglitchbg",
+      "name": "glitch",
       "position": [
         -942,
         -412
@@ -86,6 +86,49 @@
       "zIndex": 0
     },
     {
+      "alpha": 0,
+      "angle": 0,
+      "animType": "sparrow",
+      "animations": [
+        {
+          "assetPath": null,
+          "flipX": false,
+          "flipY": false,
+          "frameIndices": [          ],
+          "frameRate": 24,
+          "looped": true,
+          "name": "idle",
+          "offsets": [
+            0,
+            0
+          ],
+          "prefix": "spin"
+        }
+      ],
+      "assetPath": "stages/void/gumballglitchbg",
+      "blend": "",
+      "color": "#FFFFFF",
+      "danceEvery": 0,
+      "flipX": false,
+      "flipY": false,
+      "isPixel": false,
+      "name": "glitch2",
+      "position": [
+        -942,
+        -412
+      ],
+      "scale": [
+	5,
+	4.85
+],
+      "scroll": [
+        1,
+        1
+      ],
+      "startingAnimation": "idle",
+      "zIndex": 12
+    },
+    {
       "alpha": 1,
       "angle": 0,
       "animType": "sparrow",
@@ -99,16 +142,16 @@
       "isPixel": false,
       "name": "void_house",
       "position": [
-        -402,
-        -394
+        -450,
+        -350
       ],
-      "scale": 1.85,
+      "scale": 2,
       "scroll": [
         1,
         1
       ],
       "startingAnimation": "",
-      "zIndex": 1
+      "zIndex": 2
     },
     {
       "alpha": 1,
@@ -122,7 +165,7 @@
       "flipX": false,
       "flipY": false,
       "isPixel": false,
-      "name": "void_floor",
+      "name": "void_rock",
       "position": [
         -809,
         -626
@@ -133,7 +176,7 @@
         1
       ],
       "startingAnimation": "",
-      "zIndex": 1
+      "zIndex": 3
     },
     {
       "alpha": 1,
@@ -147,12 +190,12 @@
       "flipX": false,
       "flipY": false,
       "isPixel": false,
-      "name": "void_stuff1",
+      "name": "void_rock2",
       "position": [
-        536,
-        -90
+        -100,
+        -200
       ],
-      "scale": 1,
+      "scale": 1.7,
       "scroll": [
         1,
         1
@@ -172,18 +215,18 @@
       "flipX": false,
       "flipY": false,
       "isPixel": false,
-      "name": "void_stuff3",
+      "name": "void_rock4",
       "position": [
-        -762,
-        -14
+        -500,
+        -150
       ],
-      "scale": 1,
+      "scale": 1.7,
       "scroll": [
         1,
         1
       ],
       "startingAnimation": "",
-      "zIndex": 3
+      "zIndex": 1
     },
     {
       "alpha": 1,
@@ -197,18 +240,18 @@
       "flipX": false,
       "flipY": false,
       "isPixel": false,
-      "name": "void_stuff2",
+      "name": "void_rock3",
       "position": [
-        624,
-        688
+        -350,
+        -125
       ],
-      "scale": 1,
+      "scale": 1.7,
       "scroll": [
         1,
         1
       ],
       "startingAnimation": "",
-      "zIndex": 3
+      "zIndex": 1
     },
     {
       "alpha": 1,
@@ -222,7 +265,7 @@
       "flipX": false,
       "flipY": false,
       "isPixel": false,
-      "name": "void_stuff4",
+      "name": "void_wtf",
       "position": [
         -568,
         -278
@@ -253,7 +296,7 @@
         1,
         1
       ],
-      "zIndex": 300
+      "zIndex": 10
     },
     "dad": {
       "alpha": 1,
@@ -271,7 +314,7 @@
         1,
         1
       ],
-      "zIndex": 200
+      "zIndex": 10
     },
     "gf": {
       "alpha": 1,
@@ -289,7 +332,7 @@
         1,
         1
       ],
-      "zIndex": 300
+      "zIndex": 10
     }
   },
   "cameraZoom": 0.85,

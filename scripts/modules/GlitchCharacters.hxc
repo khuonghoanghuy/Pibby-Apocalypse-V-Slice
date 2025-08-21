@@ -1,0 +1,83 @@
+import funkin.play.PlayState;
+import funkin.modding.module.Module;
+import flixel.addons.display.FlxRuntimeShader;
+import flixel.FlxG;
+import flixel.util.FlxTimer;
+
+class GlitchCharacters extends Module
+{
+    var charGlitch:Array = [];
+    var glitchShader:FlxRuntimeShader;
+    var game:PlayState;
+    var songStarted:Bool = false;
+
+    function new(){
+        super('GlitchCharacters');
+    }
+
+    function addCharGlitch(name, noteType, mustHit){
+        charGlitch.push([name, noteType, mustHit]);
+    }
+
+    function onCountdownStart(event){
+        super.onCountdownStart(event);
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        glitchShader = new FlxRuntimeShader(Assets.getText(Paths.frag('distort')));
+        glitchShader.setFloat('binaryIntensity', 1000);
+        glitchShader.setFloat('negativity', 0);
+
+        addCharGlitch(game.currentStage.getDad(), 'Glitch Note', false);
+    }
+
+    function onNoteHit(e){
+        super.onNoteHit(e);
+
+        if (glitchShader == null) return;
+
+        for (i in charGlitch){
+            if (e.note.noteData.kind == i[1] && e.note.noteData.getMustHitNote() == i[2]){
+                glitchCharacter(i[0], false);
+            }
+        }
+    }
+
+    function onSustainNote(isOpponent, type, holdNoteData){
+        for (i in charGlitch){
+            if (type == i[1] && !isOpponent == i[2]){
+                trace(holdNoteData);
+                glitchCharacter(i[0], false, holdNoteData.length);
+            }
+        }
+    }
+
+    function onSongEvent(e)
+    {
+        if (game == null) return;
+        super.onSongEvent(e);
+        
+        if (e.eventData.eventKind == 'ChangeCharacter'){
+            trace(e.eventData.value.character);
+            if (e.eventData.value.character == 'dad'){
+                game.currentStage.getDad().shader = null;
+                new FlxTimer().start(0.025, function() charGlitch[0][0] = game.currentStage.getDad());
+                //default oppo glitch name is charGlitch[0][0], do not change anything else , if change it will error
+            }
+        }
+
+    }
+
+    function glitchCharacter(char, sustainNote, ?sustainNoteLength){
+        if (game == null) return;
+        var sustainTime = 0;
+        if (sustainNoteLength == null) sustainTime = 0; else sustainTime = sustainNoteLength/1000;
+
+        char.shader = glitchShader;
+        glitchShader.setFloat('binaryIntensity', sustainNote ? -0.5 : FlxG.random.float(-1, -0.5));
+        glitchShader.setFloat('negativity', FlxG.random.bool(50) ? 2 : -10);
+
+        new FlxTimer().start(0.1 + sustainTime, function() char.shader = null);
+    }
+}
