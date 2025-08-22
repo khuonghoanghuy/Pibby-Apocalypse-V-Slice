@@ -54,6 +54,7 @@ class Retcon extends Song
         game.add(darwinIcon);
 
         ModuleHandler.getModule('IconGlitch').scriptCall('addIcon', [darwinIcon, false]);
+        ModuleHandler.getModule('TextColor').scriptCall('addIcon', [darwinIcon, 'GF Sing', true]);
 
         ModuleHandler.getModule('healthBarGumball').scriptCall('setColor', [49, 176, 189]);
         ModuleHandler.getModule('healthBarGumball').scriptCall('createHealthBar');

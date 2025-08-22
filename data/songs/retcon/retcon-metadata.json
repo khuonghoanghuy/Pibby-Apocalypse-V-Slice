@@ -21,11 +21,7 @@
       "girlfriend": "darwin",
       "opponent": "gumball",
       "instrumental": "",
-      "altInstrumentals": [      ],
-      "opponentVocals": [],
-      "playerVocals": [
-        "cropbf"
-      ]
+      "altInstrumentals": [      ]
     },
     "stage": "theVoid",
     "noteStyle": "funkin",

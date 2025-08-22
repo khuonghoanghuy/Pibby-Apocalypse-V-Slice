@@ -9,6 +9,7 @@ import flixel.FlxG;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.FlxSprite;
+import flixel.util.FlxColor;
 
 class TheVoid extends Stage
 {
@@ -56,6 +57,11 @@ class TheVoid extends Stage
         cyclesdShader = new FlxRuntimeShader(Assets.getText(Paths.frag('Cyclesd')));
         cyclesdShader.setFloat('amount', 0);
         cyclesdShader.setFloat('pixel', 0);
+
+        game.scoreText.font = Paths.font('Gumball.ttf');
+        game.scoreText.x = 250;
+        game.scoreText.size = 20;
+        game.scoreText.color = FlxColor.fromRGB(49, 176, 189);
     }
 
     function glitchBG(glitch, ?velocity, ?tween){
@@ -76,13 +82,13 @@ class TheVoid extends Stage
                 getNamedProp('void_wtf').color = coolThingColors[1];
 
                 getNamedProp('glitch').alpha = 1;
-                getNamedProp('glitch2').alpha = 0.15;
+                getNamedProp('glitch2').alpha = 0.2;
             }else{
                 FlxTween.tween(getNamedProp('glitch'), {alpha: 1}, 1, {
                     ease: FlxEase.quadInOut
                 });
 
-                FlxTween.tween(getNamedProp('glitch2'), {alpha: 0.15}, 1, {
+                FlxTween.tween(getNamedProp('glitch2'), {alpha: 0.2}, 1, {
                     ease: FlxEase.quadInOut
                 });
 
@@ -168,6 +174,22 @@ class TheVoid extends Stage
         if (getNamedProp('void_wtf') != null){
             getNamedProp('void_wtf').angle = -3 * Math.sin(Conductor.instance.songPosition / (3000/speed));
             getNamedProp('void_wtf').offset.y = -325 - 25 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        }
+
+        if (getNamedProp('void_rock') != null){
+            getNamedProp('void_rock').angle = -1 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+            //getNamedProp('void_rock').offset.y = -320 - 40 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        }
+
+        if (game.currentStage.getBoyfriend() != null){
+            game.currentStage.getBoyfriend().angle = -2.15 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        }
+
+        if (game.currentStage.getGirlfriend() != null){
+            game.currentStage.getGirlfriend().angle = -2.15 * Math.sin(Conductor.instance.songPosition / (2500/speed));
+        }
+        if (game.currentStage.getDad() != null){
+            game.currentStage.getDad().angle = -2.15 * Math.sin(Conductor.instance.songPosition / (2500/speed));
         }
 
         //game.currentCameraZoom = 0.2;

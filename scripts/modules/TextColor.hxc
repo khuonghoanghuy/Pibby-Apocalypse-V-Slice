@@ -1,0 +1,58 @@
+import funkin.modding.module.Module;
+import funkin.modding.base.ScriptedFlxRuntimeShader;
+import funkin.play.PlayState;
+import openfl.filters.ShaderFilter;
+import flixel.addons.display.FlxRuntimeShader;
+import funkin.play.notes.SustainTrail;
+import flixel.FlxG;
+import flixel.math.FlxMath;
+import flixel.util.FlxColor;
+
+class TextColor extends Module{
+
+    var game:PlayState;
+    var iconArray = [];
+
+    function new(){
+        super('TextColor');
+    }
+
+    function onCountdownStart(event){
+        super.onCountdownStart(event);
+
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        iconArray.push([null, true, getColorIcon(game.iconP1)]);
+        iconArray.push([null, false, getColorIcon(game.iconP2)]);
+    }
+
+    function addIcon(name, noteType, mustHit){
+        iconArray.push([noteType, mustHit, getColorIcon(name)]);
+    }
+
+    function onUpdate(event){
+        game = PlayState.instance;
+
+        if (game == null) return;
+
+        trace(iconArray); 
+    }
+
+    function onNoteHit(e){
+        super.onNoteHit(e);
+
+        for (icon in iconArray){
+            if (e.note.noteData.kind ==  icon[0] && e.note.noteData.getMustHitNote() == icon[1]){
+                game.scoreText.color = icon[2];
+            }
+        }
+    }
+   
+    function getColorIcon(sprite)
+	{
+		if (sprite != null) return sprite.pixels.getPixel32(sprite.width/5, sprite.height/3);
+        return FlxColor.BLACK;
+    }
+}
