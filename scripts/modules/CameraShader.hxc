@@ -58,7 +58,7 @@ class CameraShader extends Module
     override function onSongStart(event) {
         super.onSongStart(event);
         resetShaderGlitch();
-        game.isBotPlayMode = true;
+        // game.isBotPlayMode = false;
     }
 
     function resetShaderGlitch(){

@@ -1,0 +1,43 @@
+import funkin.modding.module.Module;
+import funkin.ui.options.OptionsState;
+import funkin.save.Save;
+import funkin.play.PlayState;
+
+class BotplayMode extends Module
+{
+    public function new()
+    {
+        super("Botplay Mode");
+
+        if (Save.instance.modOptions["botplayMode"] == null)
+			Save.instance.modOptions["botplayMode"] = false;
+    }
+
+    function initPlayState() {
+        return PlayState.instance;
+    }
+
+    override function onStateChangeEnd(event) {
+        if(Std.isOfType(event.targetState, OptionsState)){
+            var prefs = event.targetState.optionsCodex.pages.get("preferences");
+			optionState = event.targetState;
+			prefs.items.createItem(120,120*prefs.items.length+30,"Botplay Gameplay","bold",function(){
+				trace("uHH");
+			});
+			prefs.preferenceDesc.push("");
+
+			prefs.createPrefItemCheckbox("Enable Botplay","Enable Botplay will auto play for you.",function(value){
+				modenabled = Save.instance.modOptions["botplayMode"] = value;
+				Save.instance.flush();
+			},Save.instance.modOptions["botplayMode"]);
+        }
+    }
+
+    override function onSongStart(event) {
+        super.onSongStart(event);
+        game = initPlayState();
+        if (game == null) return;
+
+        game.isBotPlayMode = Save.instance.modOptions["botplayMode"];
+    }
+}
