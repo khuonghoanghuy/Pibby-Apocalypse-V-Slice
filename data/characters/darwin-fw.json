@@ -7,7 +7,7 @@
 	],
 	"danceEvery": 1,
 	"scale": 1.5,
-	"name": "Darwin (Pibby Apocalypse)",
+	"name": "Darwin (FW) (Pibby Apocalypse)",
 	"flipX": false,
 	"cameraOffsets": [
 		-112,
@@ -16,161 +16,161 @@
 	"singTime": 4,
 	"startingAnimation": "idle",
 	"isPixel": false,
-	"assetPath": "characters/Darwin",
+	"assetPath": "characters/darwin-noremote",
 	"healthIcon": {
+		"isPixel": false,
 		"offsets": [
 			0,
 			0
 		],
-		"isPixel": false,
 		"scale": 1,
-		"flipX": true,
-		"id": "darwin"
+		"id": "darwin",
+		"flipX": true
 	},
 	"animations": [
 		{
-			"flipY": false,
 			"offsets": [
 				1,
 				0
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin Idle",
-			"flipX": false,
+			"name": "idle",
 			"looped": false,
-			"name": "idle"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				131,
 				-6
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin left",
-			"flipX": false,
+			"name": "singLEFT",
 			"looped": false,
-			"name": "singLEFT"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				7,
 				-51
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin down",
-			"flipX": false,
+			"name": "singDOWN",
 			"looped": false,
-			"name": "singDOWN"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				-19,
 				52
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin up",
-			"flipX": false,
+			"name": "singUP",
 			"looped": false,
-			"name": "singUP"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				-27,
 				-10
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin right",
-			"flipX": false,
+			"name": "singRIGHT",
 			"looped": false,
-			"name": "singRIGHT"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				128,
 				-1
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Left-Miss",
-			"flipX": false,
+			"name": "singLEFTmiss",
 			"looped": false,
-			"name": "singLEFTmiss"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				6,
 				-28
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Down-miss",
-			"flipX": false,
+			"name": "singDOWNmiss",
 			"looped": false,
-			"name": "singDOWNmiss"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				-15,
 				65
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Up-miss",
-			"flipX": false,
+			"name": "singUPmiss",
 			"looped": false,
-			"name": "singUPmiss"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				-29,
 				11
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Right-miss",
-			"flipX": false,
+			"name": "singRIGHTmiss",
 			"looped": false,
-			"name": "singRIGHTmiss"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				27,
 				19
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin-die",
-			"flipX": false,
+			"name": "firstDeath",
 			"looped": false,
-			"name": "firstDeath"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				-27,
 				7
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin-dead-loop",
-			"flipX": false,
+			"name": "deathLoop",
 			"looped": false,
-			"name": "deathLoop"
+			"flipX": false
 		},
 		{
-			"flipY": false,
 			"offsets": [
 				24,
 				79
 			],
+			"flipY": false,
 			"frameRate": 24,
 			"prefix": "Darwin-dead-confirm",
-			"flipX": false,
+			"name": "deathConfirm",
 			"looped": false,
-			"name": "deathConfirm"
+			"flipX": false
 		}
 	]
 }
