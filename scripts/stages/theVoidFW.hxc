@@ -1,0 +1,20 @@
+import funkin.play.stage.Stage;
+import funkin.play.PlayState;
+import funkin.Conductor;
+import Math;
+import flixel.math.FlxMath;
+import funkin.modding.base.ScriptedFlxRuntimeShader;
+import flixel.addons.display.FlxRuntimeShader;
+import flixel.FlxG;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
+
+class TheVoidFW extends Stage
+{
+    function new()
+    {
+        super("theVoid-fw");
+    }    
+}
