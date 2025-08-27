@@ -45,11 +45,20 @@ class GF_Sing extends NoteKind
         if (PlayState.instance == null) return;
         if (e.note.noteData.kind != "GF Sing") return;
 
-        if (!e.note.noteData.getMustHitNote()) e.cancel();
-
-        game.currentStage.getGirlfriend().holdTimer = 0;
-        
-        game.currentStage.getGirlfriend().playSingAnimation(e.note.noteData.getDirection(), false);
+        if (e.note.noteData.getMustHitNote()) {
+            // Nếu note ở phía BF, chỉ GF hát, BF không hát
+            game.currentStage.getGirlfriend().holdTimer = 0;
+            game.currentStage.getGirlfriend().playSingAnimation(e.note.noteData.getDirection(), false);
+            // Hủy hoạt ảnh hát của BF nếu có
+            if (game.boyfriend != null) {
+                game.boyfriend.dance();
+            }
+            e.cancel(); // Ngăn BF nhận note này
+        } else {
+            // Nếu note ở phía đối thủ, xử lý như cũ
+            game.currentStage.getGirlfriend().holdTimer = 0;
+            game.currentStage.getGirlfriend().playSingAnimation(e.note.noteData.getDirection(), false);
+        }
     }
 
     function onNoteMiss(e:Dynamic)
